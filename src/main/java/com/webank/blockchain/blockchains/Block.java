@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class Block {
-	
+	private long v;
 	private String prevHash;;
 	
 	private String hash;
