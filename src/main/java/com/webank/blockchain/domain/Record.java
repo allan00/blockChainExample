@@ -10,6 +10,8 @@ public class Record {
 	private String remark;
 	private String ip;
 
+	public Record() {
+	}
 	public Record(int id, int command, double amount, Timestamp time, String remark, String ip) {
 		this.id = id;
 		this.command = command;
