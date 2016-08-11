@@ -164,13 +164,5 @@ public class Client {
         }  
         return result;  
     }  
-  
-    /** 
-     * 主函数，测试请求 
-     *  
-     * @param args 
-     */  
-    public static void main(String[] args) {  
-  
-    }  
+    
 }  
