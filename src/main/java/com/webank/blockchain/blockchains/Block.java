@@ -1,19 +1,21 @@
 package com.webank.blockchain.blockchains;
 
+import com.webank.blockchain.domain.Record;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 
 public class Block {
 	
 	private int prevIndex;
-	
+	private int prevHash;
 	private int index;
-
-	private int prevHash;;
+	private int hash;
+	final public static int MAX_SIZE = 4;
+	private Timestamp generateTime;
 	
-	final public static int MAX_SIZE = 5;
-	
-	private ArrayList<Log> body = new ArrayList<Log>();
+	private ArrayList<Record> body = new ArrayList<Record>();
 	
 	public Block() {
 		this(0,0);
@@ -29,9 +31,9 @@ public class Block {
 		return body.size();
 	}
 	
-	public void add(Log log) {
+	public void add(Record r) {
 		if(this.size() < MAX_SIZE) {
-			body.add(log);
+			body.add(r);
 		}
 	}
 

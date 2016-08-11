@@ -1,5 +1,7 @@
 package com.webank.blockchain.blockchains;
 
+import com.webank.blockchain.domain.Record;
+
 public class BlockChain {
 
 	private static Block lastBc;
@@ -8,13 +10,13 @@ public class BlockChain {
 		lastBc = bc;
 	}
 
-	public static void add(Block bc, Log l) {
-		if (bc.size() < Block.MAX_SIZE) {
-			bc.add(l);
+	public static void add(Record r) {
+		if (lastBc.size() <= lastBc.MAX_SIZE) {
+			lastBc.add(r);
 		} else {
 			Block prevBc = lastBc;
 			lastBc = new Block(prevBc.getIndex(),prevBc.hashCode());
-			lastBc.add(l);
+			lastBc.add(r);
 		}
 	}
 
