@@ -1,4 +1,4 @@
-package com.webank.blockchain.services;
+package com.webank.blockchain.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
