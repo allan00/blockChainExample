@@ -1,5 +1,6 @@
 package com.webank.blockchain.main;
 
+import java.sql.Date;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.webank.blockchain.blockchains.Block;
 import com.webank.blockchain.blockchains.BlockChain;
 import com.webank.blockchain.blockchains.Log;
 import com.webank.blockchain.util.Client;
+import com.webank.blockchain.util.JsonTools;
 
 @RestController
 public class BlockChainController {
@@ -40,4 +42,15 @@ public class BlockChainController {
 		return bc.toString();
 	}
 	
+	@RequestMapping(value = "/log", method = RequestMethod.GET)
+    public String log() {
+		com.webank.blockchain.domain.Log l=new com.webank.blockchain.domain.Log("add");
+		l.setAmount(100);
+		l.setIp("192.168.0.11");
+		l.setDate(new Date(System.currentTimeMillis()));
+		l.setMsg("ccc");	
+		JsonTools js=new JsonTools();
+		String logJson=js.createJsonString("log1", l);
+		return logJson;
+    }
 }

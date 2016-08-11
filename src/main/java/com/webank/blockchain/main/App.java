@@ -10,7 +10,7 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 public class App implements EmbeddedServletContainerCustomizer{
 	
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {  
-        return builder.sources(App.class);  
+        return builder.sources(App.class);
     } 
 
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class App implements EmbeddedServletContainerCustomizer{
 
 	public void customize(ConfigurableEmbeddedServletContainer container) {
 		// TODO Auto-generated method stub
-		container.setPort(8080);  
+		container.setPort(8080);
 	}
 
 }
