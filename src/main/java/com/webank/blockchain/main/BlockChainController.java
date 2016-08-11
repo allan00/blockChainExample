@@ -1,10 +1,12 @@
 package com.webank.blockchain.main;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webank.blockchain.blockchains.Block;
@@ -26,16 +28,20 @@ public class BlockChainController {
 		return bc.toString();
 	}
 
-	@RequestMapping(value = "/addBlock", method = RequestMethod.GET)
-	public void add() {
-		Map parameters = null;
-		Client.sendGet("http://localhost:8080/pushAddRequest", parameters);
-		Client.sendGet("http://localhost:8081/pushAddRequest", parameters);
-		Client.sendGet("http://localhost:8082/pushAddRequest", parameters);
+	@RequestMapping(value = "/addBlock", method = RequestMethod.POST)
+	public void add(@RequestParam("par1") String par1,@RequestParam("par2") String par2,@RequestParam("par3") String par3) {
+		Map parameters = new HashMap<String,String>();
+		parameters.put("par1",par1);
+		parameters.put("par2",par2);
+		parameters.put("par3",par3);
+
+		Client.sendPost("http://localhost:8080/pushAddRequest", parameters);
+		Client.sendPost("http://localhost:8081/pushAddRequest", parameters);
+		Client.sendPost("http://localhost:8082/pushAddRequest", parameters);
 	}
 	
-	@RequestMapping(value = "/pushAddRequest", method = RequestMethod.GET)
-	public String pushAdd() {
+	@RequestMapping(value = "/pushAddRequest", method = RequestMethod.POST)
+	public String pushAdd(@RequestParam("par1") String par1,@RequestParam("par2") String par2,@RequestParam("par3") String par3) {
 		Log l = new Log("TEST");
 		BlockChain.add(bc, l);
 		bc = bco.getBlock();
