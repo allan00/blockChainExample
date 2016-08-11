@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.webank.blockchain.domain.Record;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ import com.webank.blockchain.util.JsonTools;
 @RestController
 public class BlockChainController {
 
-	Block bc = new Block("test");
+	Block bc = new Block(0,0);
 	Block lastBc = bc;
 
 	BlockChain bco = new BlockChain(bc);
@@ -42,8 +43,8 @@ public class BlockChainController {
 	
 	@RequestMapping(value = "/pushAddRequest", method = RequestMethod.POST)
 	public String pushAdd(@RequestParam("par1") String par1,@RequestParam("par2") String par2,@RequestParam("par3") String par3) {
-		Log l = new Log("TEST");
-		BlockChain.add(bc, l);
+		Record r = new Record();
+		BlockChain.add(r);
 		bc = bco.getBlock();
 		return bc.toString();
 	}
