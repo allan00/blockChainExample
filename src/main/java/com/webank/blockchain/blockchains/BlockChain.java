@@ -4,9 +4,6 @@ public class BlockChain {
 
 	private static Block lastBc;
 
-	public BlockChain() {
-	}
-
 	public BlockChain(Block bc) {
 		lastBc = bc;
 	}
@@ -16,7 +13,7 @@ public class BlockChain {
 			bc.add(l);
 		} else {
 			Block prevBc = lastBc;
-			lastBc = new Block(prevBc.getHash());
+			lastBc = new Block(prevBc.getIndex(),prevBc.hashCode());
 			lastBc.add(l);
 		}
 	}

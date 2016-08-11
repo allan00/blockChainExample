@@ -4,18 +4,25 @@ import java.util.ArrayList;
 
 
 public class Block {
-	private long v;
-	private String prevHash;;
 	
-	private String hash;
-	//private Date lastHit;
+	private int prevIndex;
+	
+	private int index;
+
+	private int prevHash;;
 	
 	final public static int MAX_SIZE = 5;
 	
 	private ArrayList<Log> body = new ArrayList<Log>();
+	
+	public Block() {
+		this(0,0);
+	}
 
-	public Block(String prevHash) {
-		this.prevHash =prevHash;
+	public Block(int prevIndex, int prevHash) {
+		this.prevIndex = prevIndex;
+		this.index = prevIndex + 1;
+		this.prevHash = prevHash;
 	}
 	
 	public int size() {
@@ -23,19 +30,48 @@ public class Block {
 	}
 	
 	public void add(Log log) {
-		if(this.size() < 5) {
+		if(this.size() < MAX_SIZE) {
 			body.add(log);
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "BlockChain [prevHash=" + prevHash + ", hash=" + hash
-				+ ", body=" + body + "]";
+		return "Block [prevIndex=" + prevIndex + ", index=" + index
+				+ ", prevHash=" + prevHash + ", body=" + body + "]";
 	}
 
-	public String getHash() {
-		return hash;
+	public int getIndex() {
+		return index;
 	}
-		
+	
+	public int getPrevIndex() {
+		return prevIndex;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Block other = (Block) obj;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		return true;
+	}
+	
 }
