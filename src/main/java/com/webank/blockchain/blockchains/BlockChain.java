@@ -8,15 +8,16 @@ public class BlockChain {
 	}
 
 	public BlockChain(Block bc) {
-		this.lastBc = bc;
+		lastBc = bc;
 	}
 
 	public static void add(Block bc, Log l) {
-		if (bc.size() <= 5) {
+		if (bc.size() < Block.MAX_SIZE) {
 			bc.add(l);
 		} else {
 			Block prevBc = lastBc;
 			lastBc = new Block(prevBc.getHash());
+			lastBc.add(l);
 		}
 	}
 

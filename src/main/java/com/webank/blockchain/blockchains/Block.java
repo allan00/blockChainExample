@@ -10,6 +10,8 @@ public class Block {
 	private String hash;
 	//private Date lastHit;
 	
+	final public static int MAX_SIZE = 5;
+	
 	private ArrayList<Log> body = new ArrayList<Log>();
 
 	public Block(String prevHash) {
@@ -21,7 +23,7 @@ public class Block {
 	}
 	
 	public void add(Log log) {
-		if(this.size() <= 5) {
+		if(this.size() < 5) {
 			body.add(log);
 		}
 	}
@@ -35,6 +37,5 @@ public class Block {
 	public String getHash() {
 		return hash;
 	}
-	
-	
+		
 }
