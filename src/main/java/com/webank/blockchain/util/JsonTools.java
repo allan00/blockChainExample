@@ -5,13 +5,7 @@ package com.webank.blockchain.util;
 import com.webank.blockchain.domain.Person;
 
 import net.sf.json.JSONObject;
-import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 
@@ -24,7 +18,7 @@ public class JsonTools {
 	/**
 	 * @param key
 	 *            表示json字符串的头信息
-	 * @param object
+	 * @param value
 	 *            是对解析的集合的类型
 	 * @return
 	 */
@@ -33,7 +27,7 @@ public class JsonTools {
 		jsonObject.put(key, value);
 		return jsonObject.toString();
 	}
-	
+
 	/*
 	public static Person getPerson(String key, String jsonString) {
 		Person person = new Person();
