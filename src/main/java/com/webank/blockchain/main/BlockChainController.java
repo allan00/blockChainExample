@@ -161,7 +161,8 @@ public class BlockChainController {
 	@RequestMapping(value = "/queryRecordByIP", method = RequestMethod.POST)
 	public String getRecordList(@RequestBody String jsonip) throws UnsupportedEncodingException {
 	    String str = java.net.URLDecoder.decode(jsonip, "utf-8");
-	    JSONObject jsonobj = JSONObject.fromObject(str, new JsonConfig());
+	    JSONObject jsonobj = JSONObject.fromObject(str+"}", new JsonConfig());
+	    System.out.println("json="+str);
 	    String ip = "";
 	    if(jsonobj.get("ip")!=null) {
 	        ip = jsonobj.getString("ip");
