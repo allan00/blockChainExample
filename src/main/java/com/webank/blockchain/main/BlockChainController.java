@@ -162,15 +162,16 @@ public class BlockChainController {
 					for (int i = 0; i < list.size(); i++) {
 						switch (list.get(i).getCommand()) {
 						case 1://捐款
-							ip = "8082";
+							ip = "8080";
 							r.setCommand(1);
 							r.setAmount(list.get(i).getAmount());
 							r.setTime(new Timestamp(System.currentTimeMillis()));
 							r.setRemark(list.get(i).getRemark());
 							r.setIp(ip);
-							result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
-							result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
-							result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+							String s1=java.net.URLEncoder.encode(r.toString(), "utf-8");
+							result += Client.sendPost("http://localhost:8080/pushAddRequest", s1);
+							result += Client.sendPost("http://localhost:8081/pushAddRequest", s1);
+							result += Client.sendPost("http://localhost:8082/pushAddRequest", s1);
 							break;
 						case 2://提款
 							ip = "8082";
@@ -179,9 +180,10 @@ public class BlockChainController {
 							r.setTime(new Timestamp(System.currentTimeMillis()));
 							r.setRemark(list.get(i).getRemark());
 							r.setIp(ip);
-							result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
-							result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
-							result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+							String s2=java.net.URLEncoder.encode(r.toString(), "utf-8");
+							result += Client.sendPost("http://localhost:8080/pushAddRequest", s2);
+							result += Client.sendPost("http://localhost:8081/pushAddRequest", s2);
+							result += Client.sendPost("http://localhost:8082/pushAddRequest", s2);
 							break;	
 						default:
 							break;
@@ -197,7 +199,7 @@ public class BlockChainController {
 		}else{
 			try{
 				//ip = InetAddress.getLocalHost().getHostAddress();
-				ip = "8082";
+				ip = "8080";
 				Timestamp time = new Timestamp(System.currentTimeMillis());
 //				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //				String generateTime = sdf.format(time);
