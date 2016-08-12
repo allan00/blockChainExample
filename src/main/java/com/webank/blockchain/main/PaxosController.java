@@ -21,16 +21,18 @@ public class PaxosController {
 	@CrossOrigin
 	@RequestMapping(value = "/prepare", method = RequestMethod.POST)
 	public String prepare(@RequestBody String ts) {
+		String res = "error";
 		if(locked) {
 			if(epoch!=null&&epoch.getTime()<Timestamp.valueOf(ts).getTime()) {
 				epoch = Timestamp.valueOf(ts);
-			}
+			} 
 		} else {
 			if(accepted.equals(null)) {
-				
+				res = "success";
+				locked = true;
 			}
 		}
-		return "";
+		return res;
 	}
 	
 	@CrossOrigin
@@ -39,4 +41,6 @@ public class PaxosController {
 		
 		return "";
 	}
+	
+	
 }
