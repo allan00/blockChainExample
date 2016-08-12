@@ -133,62 +133,71 @@ public class BlockChainController {
 	@CrossOrigin
 	@RequestMapping(value = "/addBlock", method = RequestMethod.POST)
 	public String add(@RequestBody String requestJson) throws UnsupportedEncodingException {
-		
 		String str = java.net.URLDecoder.decode(requestJson, "utf-8");
 		JSONObject outer_jsonobj = JSONObject.fromObject(str, new JsonConfig());
 		JSONObject jsonobj = JSONObject.fromObject(outer_jsonobj.get("msgBody"));
-		String ip = "8082";
+		String ip = "";
 		String result = "";
 		Record r = new Record();
-		String jString = (String) jsonobj.get("js");
-		if (jString != null && !jString.equals("")) {
-			try {
-				String jsons = (String) JavaScriptEngine.engine3(jString);// 参数为jString
-				ArrayList<JSCommand> list = new ArrayList<JSCommand>();
-				JSONArray jsonArray = JSONArray.fromObject(jsons);
-				for (int i = 0; i < jsonArray.size(); i++) {
-					JSONObject jsonObject = jsonArray.getJSONObject(i);
-					JSCommand jsCommand = new JSCommand();
-					jsCommand.setCommand((Integer) jsonObject.get("command"));
-					jsCommand.setAmount((Integer) jsonObject.get("amount"));
-					jsCommand.setRemark((String) jsonObject.get("remark"));
-					list.add(jsCommand);
-				}
-				for (int i = 0; i < list.size(); i++) {
-					switch (list.get(i).getCommand()) {
-					case 1://捐款
-						r.setCommand(1);
-						r.setAmount(list.get(i).getAmount());
-						r.setTime(new Timestamp(System.currentTimeMillis()));
-						r.setRemark(list.get(i).getRemark());
-						r.setIp(ip);
-						result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
-						result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
-						result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
-						break;
-					case 2://提款
-						r.setCommand(1);
-						r.setAmount(list.get(i).getAmount());
-						r.setTime(new Timestamp(System.currentTimeMillis()));
-						r.setRemark(list.get(i).getRemark());
-						r.setIp(ip);
-						result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
-						result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
-						result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
-						break;	
-					default:
-						break;
+		String jString="";
+		if(jsonobj.get("command")==null)
+		{
+			return result;
+		}
+		int c=(Integer) jsonobj.get("command");
+		if (c==3) {
+			if (jString != null && !jString.equals("")) {
+				try {
+					String jsons = (String) JavaScriptEngine.engine3(jString);// 参数为jString
+					ArrayList<JSCommand> list = new ArrayList<JSCommand>();
+					JSONArray jsonArray = JSONArray.fromObject(jsons);
+					for (int i = 0; i < jsonArray.size(); i++) {
+						JSONObject jsonObject = jsonArray.getJSONObject(i);
+						JSCommand jsCommand = new JSCommand();
+						jsCommand.setCommand((Integer) jsonObject.get("command"));
+						jsCommand.setAmount((Integer) jsonObject.get("amount"));
+						jsCommand.setRemark((String) jsonObject.get("remark"));
+						list.add(jsCommand);
 					}
-					System.out.println(list.get(i));
+					for (int i = 0; i < list.size(); i++) {
+						switch (list.get(i).getCommand()) {
+						case 1://捐款
+							ip = "8082";
+							r.setCommand(1);
+							r.setAmount(list.get(i).getAmount());
+							r.setTime(new Timestamp(System.currentTimeMillis()));
+							r.setRemark(list.get(i).getRemark());
+							r.setIp(ip);
+							result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
+							result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
+							result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+							break;
+						case 2://提款
+							ip = "8082";
+							r.setCommand(1);
+							r.setAmount(list.get(i).getAmount());
+							r.setTime(new Timestamp(System.currentTimeMillis()));
+							r.setRemark(list.get(i).getRemark());
+							r.setIp(ip);
+							result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
+							result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
+							result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+							break;	
+						default:
+							break;
+						}
+						System.out.println(list.get(i));
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (ScriptException e) {
+					e.printStackTrace();
 				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (ScriptException e) {
-				e.printStackTrace();
 			}
 		}else{
 			try{
 				//ip = InetAddress.getLocalHost().getHostAddress();
+				ip = "8082";
 				Timestamp time = new Timestamp(System.currentTimeMillis());
 //				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //				String generateTime = sdf.format(time);
