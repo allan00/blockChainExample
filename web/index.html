@@ -38,17 +38,21 @@
   以获得更好的体验！</p>
   <![endif]-->
   
-  <div class="wrapper am-container">
-    
+  <div>
     <!-- 1 -->
     <div class="am-u-lg-4 client am-padding-xs">
       <header data-am-widget="header"
         class="am-header am-header-default">
+        <div class="am-header-left am-header-nav">
+          <a id="left-link1" href="search.html">
+            <i class="am-header-icon am-icon-search"></i>
+          </a>
+        </div>
         <h1 class="am-header-title">
         区块链募捐系统
         </h1>
         <div class="am-header-right am-header-nav">
-          <a id="right-link" href="#right-link" class="">
+          <a id="right-link1" href="#right-link1" class="">
             <!-- <i class="am-header-icon am-icon-bars"></i> -->
             交易记录
           </a>
@@ -57,10 +61,10 @@
       <!-- page1 -->
       <div id="page1-1" class="am-u-lg-12 page1">
         <div class="am-u-lg-12">
-          <h1 class="am-text-center" style="color:#0e90d2;margin-top:50px">捐款余额</h1>
+          <h1 class="am-text-center" style="color:#0e90d2;margin-top:25px">捐款余额</h1>
         </div>
         <div class="am-u-lg-12">
-          <h1 class="am-text-center" style="color:red">100元</h1>
+          <h1 class="am-text-center" id="total1" style="color:red">0.00元</h1>
         </div>
         
         <!-- form -->
@@ -69,15 +73,15 @@
             <div class="am-input-group am-form-group">
               <!-- <label for="doc-ipt-amt">交易金额：</label> -->
               <span class="am-input-group-label">交易金额：</span>
-              <input type="text" class="amt am-form-field" id="doc-ipt-amt" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
+              <input type="text" class="amt am-form-field" id="doc-ipt-amt1" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
             </div>
             <div class="am-input-group am-form-group">
               <span class="am-input-group-label">备注：</span>
-              <input type="text" class="remark am-form-field" id="doc-ipt-remark" placeholder="请输入交易原因">
+              <input type="text" class="remark am-form-field" id="doc-ipt-remark1" placeholder="请输入交易原因">
             </div>
             <div class="am-form-group">
               <label for="doc-ipt-script" style="color:#0e90d2;">自定义操作脚本：</label>
-              <textarea class="" id="doc-ipt-script" rows="10" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
+              <textarea class="" id="doc-ipt-script1" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
             </div>
             <div class="am-g">
               <div class="am-u-lg-4">
@@ -91,104 +95,374 @@
               </div>
             </div>
           </fieldset>
+          <!-- 新记录 -->
+          <ul class="am-list am-list-border am-scrollable-vertical" id="latest-block1" style="height:240px;resize:none">
+            
+          </ul>
         </div>
       </div>
-      <!-- page2 -->
+      <!-- page1-2 -->
       <div id="page1-2" class="am-u-lg-12 page1">
         <!-- list -->
         <div class="am-u-lg-12">
-          <h1 class="am-text-center" style="color:#0e90d2">账户余额</h1>
-        </div>
-        <div class="am-u-lg-12">
-          <h1 class="am-text-center" style="color:red">100元</h1>
-        </div>
-        <div class="am-u-lg-12">
           <h1 class="am-text-center" style="color:#0e90d2">交易记录</h1>
         </div>
-        <ul class="am-list am-list-border am-scrollable-vertical" style="height:500px;resize:none">
-          <li>
-            <div>hash:adf12fb</div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-          </li>
-          <li>
-            <div>hash:adf12fb</div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-          </li>
-          <li>
-            <div>hash:adf12fb</div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-          </li>
-          <li>
-            <div>hash:adf12fb</div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-          </li>
-          <li>
-            <div>hash:adf12fb</div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-          </li>
-          <li>
-            <div>hash:adf12fb</div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-            <div><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></div>
-          </li>
+        <ul class="am-list am-list-border am-scrollable-vertical" id="all-block1" style="height:600px;resize:none">
+          
         </ul>
       </div>
+
+      <div id="page1-search" class="am-u-lg-4 page-search">
+        <select id="page3-selected" data-am-selected>">
+          <select id="page1-selected" data-am-selected>
+            <option value="a">8080</option>
+            <option value="b">8081</option>
+            <option value="o">8082</option>
+          </select>
+          <button class="am-btn am-btn-default" id="page1-search-close-btn" type="button"><span class="am-icon-close"></span> </button>
+          <ul class="am-list am-list-border am-scrollable-vertical" id="page1-search-list" style="height:720px;resize:none;">
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 2 -->
+    <div class="am-u-lg-4 client am-padding-xs">
+        <header data-am-widget="header"
+          class="am-header am-header-default">
+          <div class="am-header-left am-header-nav">
+            <a id="left-link2" href="search.html" class="">
+              <i class="am-header-icon am-icon-search"></i>
+            </a>
+          </div>
+          <h1 class="am-header-title">
+          区块链募捐系统
+          </h1>
+          <div class="am-header-right am-header-nav">
+            <a id="right-link2" href="#right-link2" class="">
+              <!-- <i class="am-header-icon am-icon-bars"></i> -->
+              交易记录
+            </a>
+          </div>
+        </header>
+        <!-- page1 -->
+        <div id="page2-1" class="am-u-lg-12 page2">
+          <div class="am-u-lg-12">
+            <h1 class="am-text-center" style="color:#0e90d2;margin-top:25px">捐款余额</h1>
+          </div>
+          <div class="am-u-lg-12">
+            <h1 class="am-text-center" id="total2" style="color:red">0.00元</h1>
+          </div>
+          
+          <!-- form -->
+          <div class="am-form">
+            <fieldset>
+              <div class="am-input-group am-form-group">
+                <!-- <label for="doc-ipt-amt">交易金额：</label> -->
+                <span class="am-input-group-label">交易金额：</span>
+                <input type="text" class="amt am-form-field" id="doc-ipt-amt2" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
+              </div>
+              <div class="am-input-group am-form-group">
+                <span class="am-input-group-label">备注：</span>
+                <input type="text" class="remark am-form-field" id="doc-ipt-remark2" placeholder="请输入交易原因">
+              </div>
+              <div class="am-form-group">
+                <label for="doc-ipt-script" style="color:#0e90d2;">自定义操作脚本：</label>
+                <textarea class="" id="doc-ipt-script2" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
+              </div>
+              <div class="am-g">
+                <div class="am-u-lg-4">
+                  <button type="button" id='giveMoney2' class="am-btn am-btn-primary am-btn-xl">捐款</button>
+                </div>
+                <div class="am-u-lg-4">
+                  <button type="button" id='fetchMoney2' class="am-btn am-btn-primary am-btn-xl">提款</button>
+                </div>
+                <div class="am-u-lg-4">
+                  <button type="button" id='customOp2' class="am-btn am-btn-primary am-btn-xl">自定义</button>
+                </div>
+              </div>
+            </fieldset>
+            <!-- 新记录 -->
+            <ul class="am-list am-list-border am-scrollable-vertical" id="latest-block2" style="height:240px;resize:none">
+              
+            </ul>
+          </div>
+        </div>
+        <!-- page2-2 -->
+        <div id="page2-2" class="am-u-lg-12 page2">
+          <!-- list -->
+          <div class="am-u-lg-12">
+            <h1 class="am-text-center" style="color:#0e90d2">交易记录</h1>
+          </div>
+          <ul class="am-list am-list-border am-scrollable-vertical" id="all-block2" style="height:600px;resize:none">
+            
+          </ul>
+        </div>
+
+        <div id="page2-search" class="am-u-lg-4 page-search">
+          <select id="page2-selected" data-am-selected>
+            <option value="a">8080</option>
+            <option value="b">8081</option>
+            <option value="o">8082</option>
+          </select>
+          <button class="am-btn am-btn-default" id="page2-search-close-btn" type="button"><span class="am-icon-close"></span> </button>
+          <ul class="am-list am-list-border am-scrollable-vertical" id="page2-search-list" style="height:720px;resize:none;">
+            
+          </ul>
+        </div>
+    </div>
+    
+    <!-- 3 -->  
+    <div class="am-u-lg-4 client am-padding-xs">
+        <header data-am-widget="header"
+          class="am-header am-header-default">
+          <div class="am-header-left am-header-nav">
+            <a id="left-link3" href="search.html" class="">
+              <i class="am-header-icon am-icon-search"></i>
+            </a>
+          </div>
+          <h1 class="am-header-title">
+          区块链募捐系统
+          </h1>
+          <div class="am-header-right am-header-nav">
+            <a id="right-link3" href="#right-link3" class="">
+              <!-- <i class="am-header-icon am-icon-bars"></i> -->
+              交易记录
+            </a>
+          </div>
+        </header>
+        <!-- page3 -->
+        <div id="page3-1" class="am-u-lg-12 page3">
+          <div class="am-u-lg-12">
+            <h1 class="am-text-center" style="color:#0e90d2;margin-top:25px">捐款余额</h1>
+          </div>
+          <div class="am-u-lg-12">
+            <h1 class="am-text-center" id="total3" style="color:red">0.00元</h1>
+          </div>
+          
+          <!-- form -->
+          <div class="am-form">
+            <fieldset>
+              <div class="am-input-group am-form-group">
+                <!-- <label for="doc-ipt-amt">交易金额：</label> -->
+                <span class="am-input-group-label">交易金额：</span>
+                <input type="text" class="amt am-form-field" id="doc-ipt-amt3" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
+              </div>
+              <div class="am-input-group am-form-group">
+                <span class="am-input-group-label">备注：</span>
+                <input type="text" class="remark am-form-field" id="doc-ipt-remark3" placeholder="请输入交易原因">
+              </div>
+              <div class="am-form-group">
+                <label for="doc-ipt-script" style="color:#0e90d2;">自定义操作脚本：</label>
+                <textarea class="" id="doc-ipt-script3" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
+              </div>
+              <div class="am-g">
+                <div class="am-u-lg-4">
+                  <button type="button" id='giveMoney3' class="am-btn am-btn-primary am-btn-xl">捐款</button>
+                </div>
+                <div class="am-u-lg-4">
+                  <button type="button" id='fetchMoney3' class="am-btn am-btn-primary am-btn-xl">提款</button>
+                </div>
+                <div class="am-u-lg-4">
+                  <button type="button" id='customOp3' class="am-btn am-btn-primary am-btn-xl">自定义</button>
+                </div>
+              </div>
+            </fieldset>
+            <!-- 新记录 -->
+            <ul class="am-list am-list-border am-scrollable-vertical" id='latest-block3' style="height:240px;resize:none">
+
+            </ul>
+          </div>
+        </div>
+        <!-- page1-2 -->
+        <div id="page3-2" class="am-u-lg-12 page3">
+          <!-- list -->
+          <div class="am-u-lg-12">
+            <h1 class="am-text-center" style="color:#0e90d2">交易记录</h1>
+          </div>
+          <ul class="am-list am-list-border am-scrollable-vertical" id="all-block3" style="height:600px;resize:none">
+            
+          </ul>
+        </div>
+        <div id="page3-search" class="am-u-lg-4 page-search am-padding-xs">
+          <select id="page3-selected" data-am-selected>
+            <option value="a">8080</option>
+            <option value="b">8081</option>
+            <option value="o">8082</option>
+          </select>
+          <button class="am-btn am-btn-default" id="page3-search-close-btn" type="button"><span class="am-icon-close"></span> </button>
+          <ul class="am-list am-list-border am-scrollable-vertical" id="page3-search-list" style="height:720px;resize:none;">
+            
+          </ul>
+        </div>
     </div>
   </div>
+
   
   <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="vendor/notie/dist/notie.min.js"></script>
   <script type="text/javascript" src="vendor/amazeui/dist/js/amazeui.min.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
   <script type="text/javascript">
-
   
-
-  $("#right-link").click(function(event) {
+  //Page1
+  $("#right-link1").click(function(event) {
     if (!$('#page1-1').is(":animated")) {
-      if ($('#page1-1').position().top>=0) {
-      $('.page1').animate({top:'-=750px'}, '500');
-      $('#right-link').text('返回');
-    } else {
-      $('.page1').animate({top:'+=750px'}, '500');
-      $('#right-link').text('交易记录');
-    }
+      if ($('#page1-1').position().top >= 0) {
+        $('.page1').animate({
+          top: '-=750px'
+        }, '500');
+        $('#right-link1').text('返回');
+      } else {
+        $('.page1').animate({
+          top: '+=750px'
+        }, '500');
+        $('#right-link1').text('交易记录');
+      }
+    };
+  });
+  $("#giveMoney1").click(function(event) {
+    requestGiveMoney(rootUrl1, $('#doc-ipt-amt1').val(), $('#doc-ipt-remark1').val());
+  });
+  $("#fetchMoney1").click(function(event) {
+    requestFetchMoney(rootUrl1, $('#doc-ipt-amt1').val(), $('#doc-ipt-remark1').val());
+  });
+  $("#customOp1").click(function(event) {
+    requestCustomOp(rootUrl1, $('#doc-ipt-amt1').val(), $('#doc-ipt-remark1').val(), $('#doc-ipt-script1').val());
+  });
+  $('#page1-search-close-btn').click(function(event) {
+
+    })
+    //首页最新区块
+  setInterval(function() {
+    requestQueryRec(rootUrl1, function(resultArr) {
+      $('#total1').empty();
+      $('#total1').append(resultArr[0]);
+      $('#latest-block1').empty();
+      $('#latest-block1').append(resultArr[1]);
+    });
+  }, 1000);
+  //交易记录区块
+  setInterval(function() {
+    requestAllQueryRec(rootUrl1, function(html) {
+      $('#all-block1').empty();
+      $('#all-block1').append(html);
+    });
+  }, 1000);
+  var page1_selected = $('#page1-selected');
+  page1_selected.on('change', function(event) {
+    var ip = $(this).find('option').eq(this.selectedIndex).text();
+    var html = requestQueryRecWithIP(rootUrl1, ip);
+    $('#page1-search-list').empty();
+    $('#page1-search-list').append(html);
+  });
+  // Page2
+  $("#right-link2").click(function(event) {
+    if (!$('#page2-1').is(":animated")) {
+      if ($('#page2-1').position().top >= 0) {
+        $('.page2').animate({
+          top: '-=750px'
+        }, '500');
+        $('#right-link2').text('返回');
+      } else {
+        $('.page2').animate({
+          top: '+=750px'
+        }, '500');
+        $('#right-link2').text('交易记录');
+      }
     };
   });
 
-  $("#giveMoney1").click(function(event) {
-    requestGiveMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+  $("#giveMoney2").click(function(event) {
+    requestGiveMoney(rootUrl2, $('#doc-ipt-amt2').val(), $('#doc-ipt-remark2').val());
   });
-  $("#fetchMoney1").click(function(event) {
-    requestFetchMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+  $("#fetchMoney2").click(function(event) {
+    requestFetchMoney(rootUrl2, $('#doc-ipt-amt2').val(), $('#doc-ipt-remark2').val());
   });
-  $("#customOp1").click(function(event) {
-    requestCustomOp(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val(), $('#doc-ipt-script').val());
+  $("#customOp2").click(function(event) {
+    requestCustomOp(rootUrl2, $('#doc-ipt-amt2').val(), $('#doc-ipt-remark2').val(), $('#doc-ipt-script2').val());
   });
-  var timer = setInterval(function() {
-    requestQueryRec(rootUrl1);
-  },1000);
-  // $("#giveMoney1").click(function(event) {
-  // });
-  // $("#fetchMoney1").click(function(event) {
-  
-  // });
-  // $("#customOp1").click(function(event) {
-  
-  // });
-  // $("#giveMoney1").click(function(event) {
-  // });
-  // $("#fetchMoney1").click(function(event) {
-  
-  // });
-  // $("#customOp1").click(function(event) {
-  
-  // });
+
+  setInterval(function() {
+    requestQueryRec(rootUrl2, function(resultArr) {
+      $('#total2').empty();
+      $('#total2').append(resultArr[0]);
+      $('#latest-block2').empty();
+      $('#latest-block2').append(resultArr[1]);
+    });
+  }, 1000);
+
+  //交易记录区块
+  setInterval(function() {
+    requestAllQueryRec(rootUrl2, function(html) {
+      $('#all-block2').empty();
+      $('#all-block2').append(html);
+    });
+  }, 1000);
+  var page2_selected = $('#page2-selected');
+  page2_selected.on('change', function(event) {
+    var ip = $(this).find('option').eq(this.selectedIndex).text();
+    var html = requestQueryRecWithIP(rootUrl2, ip);
+    $('#page1-search-list').empty();
+    $('#page1-search-list').append(html);
+  });
+  // Page3
+  $("#right-link3").click(function(event) {
+    if (!$('#page3-1').is(":animated")) {
+      if ($('#page3-1').position().top >= 0) {
+        $('.page3').animate({
+          top: '-=750px'
+        }, '500');
+        $('#right-link3').text('返回');
+      } else {
+        $('.page3').animate({
+          top: '+=750px'
+        }, '500');
+        $('#right-link3').text('交易记录');
+      }
+    };
+  });
+  $("#giveMoney3").click(function(event) {
+    requestGiveMoney(rootUrl3, $('#doc-ipt-amt3').val(), $('#doc-ipt-remark3').val());
+  });
+  $("#fetchMoney3").click(function(event) {
+    requestFetchMoney(rootUrl3, $('#doc-ipt-amt3').val(), $('#doc-ipt-remark3').val());
+  });
+  $("#customOp3").click(function(event) {
+    requestCustomOp(rootUrl3, $('#doc-ipt-amt3').val(), $('#doc-ipt-remark3').val(), $('#doc-ipt-script3').val());
+  });
+
+  setInterval(function() {
+    requestQueryRec(rootUrl3, function(resultArr) {
+      $('#total3').empty();
+      $('#total3').append(resultArr[0]);
+      $('#latest-block3').empty();
+      $('#latest-block3').append(resultArr[1]);
+    });
+  }, 1000);
+  //交易记录区块
+  setInterval(function() {
+    requestAllQueryRec(rootUrl3, function(html) {
+      $('#all-block3').empty();
+      $('#all-block3').append(html);
+    });
+  }, 1000);
+  var page3_selected = $('#page3-selected');
+  page3_selected.on('change', function(event) {
+    var ip = $(this).find('option').eq(this.selectedIndex).text();
+    var html = requestQueryRecWithIP(rootUrl3, ip);
+    $('#page3-search-list').empty();
+    $('#page3-search-list').append(html);
+  });
+
+
+  $('select').selected({
+    btnWidth: '365px',
+    btnSize: 'xl',
+    btnStyle: 'primary',
+    maxHeight: '100px'
+  });
   </script>
 </body>
 </html>
