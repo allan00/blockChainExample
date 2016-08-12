@@ -6,21 +6,18 @@ var rootUrl1 = "http://119.29.98.174:8080";
 var rootUrl2 = "http://119.29.98.174:8081";
 var rootUrl3 = "http://119.29.98.174:8082";
 
+var commandDic = {
+    1:'捐款',
+    2:'提款',
+    3:'自定义操作'
+}
 
 function requestGiveMoney(url, amount, remark) {
-    var data = {
-        "type": "normal",
-        "msgBody": {
-            "command": 1,
-            "amount": amount,
-            "remark": remark,
-            "js": null
-        }
-    };
+    var data = '{"type": "normal","msgBody": {"command": 1,"remark": "'+remark+'","amount":'+amount+',"js": null}}';
     return $.ajax({
         type: "post",
         url: url + '/addBlock',
-        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
         data: data
     }).done(function(data) {
         handleGiveMoney(data);
@@ -31,18 +28,11 @@ function requestGiveMoney(url, amount, remark) {
 
 
 function requestFetchMoney(url, amount, remark) {
-    var data = {
-        "type": "normal",
-        "msgBody": {
-            "command": 2,
-            "amount": amount,
-            "remark": remark,
-            "js": null
-        }
-    };
+    var data = '{"type": "normal","msgBody": {"command": 2,"amount": '+amount+',"remark": "'+remark+'","js": null}}';
     return $.ajax({
         type: "post",
         url: url + '/addBlock',
+        contentType: "application/json;charset=UTF-8",
         data: data
     }).done(function(data) {
         handleFetchMoney(data);
@@ -52,18 +42,11 @@ function requestFetchMoney(url, amount, remark) {
 }
 
 function requestCustomOp(url, amount, remark, js) {
-    var data = {
-        "type": "normal",
-        "msgBody": {
-            "command": 3,
-            "amount": amount,
-            "remark": remark,
-            "js": js
-        }
-    };
+    var data = '{"type": "normal","msgBody": {"command": 3,"amount":'+amount+',"remark": "'+remark+'","js": '+js+'}}';
     return $.ajax({
         type: "post",
         url: url + '/addBlock',
+        contentType: "application/json;charset=UTF-8",
         data: data
     }).done(function(data) {
         handleCustomOp(data);
@@ -72,12 +55,39 @@ function requestCustomOp(url, amount, remark, js) {
     });
 }
 
-function requestQueryRec(url) {
-    return $.ajax({
+function requestQueryRec(url, htmlHandle) {
+    $.ajax({
         type: "get",
         url: url + '/queryBlock',
+        dataType: 'json'
     }).done(function(data) {
-        handleQueryRec(data);
+        handleQueryRec(data, htmlHandle);
+    }).fail(function(error) {
+
+    });
+}
+
+function requestQueryRecWithIP(url, ip, htmlHandle) {
+    return $.ajax({
+        type: "post",
+        url: url + '/queryRecordByIP',
+        contentType: "application/json;charset=UTF-8",
+        data: '{"ip":'+ip+'}',
+        dataType: 'json'
+    }).done(function(data) {
+        handleQueryRecWithIp(data, htmlHandle);
+    }).fail(function(error) {
+
+    });
+}
+
+function requestAllQueryRec(url, htmlHandle) {
+    return $.ajax({
+        type: "get",
+        dataType: 'json',
+        url: url + '/queryAllBlock'
+    }).done(function(data) {
+        handleAllQueryRec(data, htmlHandle);
     }).fail(function(error) {
 
     });
@@ -86,19 +96,50 @@ function requestQueryRec(url) {
 
 function handleGiveMoney(data) {
     // console.log(data);
-    notie.alert(1, data, 1);
+    notie.alert(1, '捐款成功', 1);
 }
 
 function handleFetchMoney(data) {
-    notie.alert(1, data, 1);
+    notie.alert(1, '提款成功', 1);
 }
 
 function handleCustomOp(data) {
     console.log(data);
 }
 
-function handleQueryRec(data) {
-    console.log(data);
+function handleAllQueryRec (data, htmlHandle) {
+    var rowHtml = "";
+    $.each(data, function(index, item) {
+        var bodyArr = item.body;
+        rowHtml += '<li><p class="block-header">Header  前序块号:' + item.prevIndex +' 前序Hash:'+ item.prevHash +' 当前块号:'+ item.index + ' Hash:'+item.hash+'时间戳:'+item.generateTime+'</p>'
+        $.each(bodyArr, function(index, item){
+            rowHtml += '<p>用户号:'+item.ip +' '+ commandDic[item.command] +':'+ item.amount +'元'+ ' 备注:'+item.remark+'\n 时间:'+ item.time +'</p>';
+        });
+        rowHtml += '</li>'
+    });
+
+    htmlHandle(rowHtml);
+} 
+
+function handleQueryRec(data, htmlHandle) {
+
+    var block = data.block;
+    var rowHtml = '<p class="block-header">Header  前序块号:' + block.prevIndex +' 前序Hash:'+ block.prevHash +' 当前块号:'+ block.index + ' Hash:'+block.hash+'时间戳:'+block.generateTime+'</p>';
+    var bodyArr = block.body;
+    $.each(bodyArr, function(index, item){
+        rowHtml += '<p>用户号:'+item.ip +' '+ commandDic[item.command] +':'+ item.amount +'元'+ ' 备注:'+item.remark+'\n 时间:'+ item.time +'</p>';
+    });
+    htmlHandle([data.total.toFixed(2), rowHtml]);
+}
+
+function handleQueryRecWithIp(data, htmlHandle) {
+
+    var bodyArr = data;
+    var rowHtml = "";
+    $.each(bodyArr, function(index, item){
+        rowHtml += '<li><p>用户号:'+item.ip +' '+ commandDic[item.command] +':'+ item.amount +'元'+ ' 备注:'+item.remark+'\n 时间:'+ item.time +'</p></li>';
+    });
+    htmlHandle(rowHtml);
 }
 
 
@@ -113,81 +154,6 @@ function str2JSON(str) {
 
 
 
-// function query(isAll) {
-//     var tabType = $('.prod-info-tabs.am-active').attr('id');
-//     var keyword = '',
-//         keywordType = '';
-
-//     if (tabType == 'prod-tab') {
-//         if (isAll) {
-//             queryProdInfo(null, null, requestType.PROD);
-//         } else {
-//             keyword = $("input[name='keyWord_prod']").val();
-//             keywordType = $("input[name='key-word-type']:checked").val();
-//             queryProdInfo(keyword, keywordType, requestType.PROD);
-//         }
-//     } else {
-//         if (isAll) {
-//             queryProdInfo(null, null, requestType.K);
-//         } else {
-//             keyword = $("input[name='keyWord_k']").val();
-//             keywordType = $("input[name='key-word-type']:checked").val();
-//             queryProdInfo(keyword, keywordType, requestType.K);
-//         }
-//     }
-// }
-
-// function queryProdInfo(keyword, keywordType, type) {
-
-//         switch (type) {
-//             case requestType.K:
-//                 if (!kCache.length) {
-//                     requestKProdInfo().done(function() {
-//                         queryData(kCache, keyword, keywordType);
-//                     });
-//                 } else {
-//                     queryData(kCache, keyword, keywordType);
-//                 }
-//                 break;
-//             case requestType.PROD:
-//                 if (!proCache.length) {
-//                     requestProProdInfo().done(function() {
-//                         queryData(proCache, keyword, keywordType);
-//                     });
-//                 } else {
-//                     queryData(proCache, keyword, keywordType);
-//                 }
-//                 break;
-//         }
-
-// }
-
-function queryData(cache, keyword, keywordType) {
-
-    var resultArr = [];
-    if (keywordType == 'prodName') {
-        $.each(cache, function(index, item) {
-            if (item.productName && item.productName.indexOf(keyword) != -1)
-                resultArr.push(item);
-        });
-    } else if (keywordType == 'prodCode') {
-        $.each(cache, function(index, item) {
-            if (item.productName && item.productCode.indexOf(keyword) != -1)
-                resultArr.push(item);
-        });
-    } else {
-        resultArr = cache;
-    }
-
-    var rowHtml = '';
-
-    $.each(resultArr, function(index, item) {
-        rowHtml += "<tr class='prod-list-row'> <td class='col-sm-3'>" + item.productName + "</td> <td class='col-sm-3'>" + item.productCode + "</td> <td class='col-sm-3'>" + item.productDesc + "</td> <td class='col-sm-3'>" + JSON.stringify(item) + "</td> </tr>";
-    });
-
-    $('.prod-list-body').empty();
-    $('.prod-list-body').append(rowHtml);
-}
 
 
 
@@ -203,15 +169,33 @@ function isDigit(s) {
     }
 }
 
-function checkEmpty() {
-    
-}
-
-function CheckForm1(s) {
+function checkEmpty(s) {
     if (s.length == 0) {
-        notie.alert(3,"请输入您姓名!",1);
+        notie.alert(3,"请输入备注信息!",1);
         return false;
     }
-    return true;
+    return true;    
 }
 
+
+
+function() {
+    return [{
+        command:1,
+        amount:10,
+        remark:"asas"
+    },{
+        command:1,
+        amount:10,
+        remark:"asas"
+    },{
+        command:2,
+        amount:10,
+        remark:"asas"
+    },{
+        command:2,
+        amount:100,
+        remark:"asas"
+    }];
+}
+document.querySelector('')

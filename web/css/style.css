@@ -17,7 +17,7 @@ border-color: lightgray;
 border-style: solid;
 }
 
-.page1,.client {
+.page1,.page2,.page3,.client {
 	height: 800px;
 	overflow:hidden;
 }
@@ -25,4 +25,18 @@ border-style: solid;
 
 header {
 	z-index:10;
+}
+
+.page-search {
+	border-color: #0e90d2;
+	border-width: 1px;
+	border-style: solid;
+} 
+
+.search-dropdown {
+	width: 200px
+}
+
+.block-header {
+	background-color: lightgray
 }
