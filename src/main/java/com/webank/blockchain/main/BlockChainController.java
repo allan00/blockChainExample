@@ -25,6 +25,7 @@ import com.webank.blockchain.domain.BlockChain;
 import com.webank.blockchain.domain.JSCommand;
 import com.webank.blockchain.domain.Record;
 import com.webank.blockchain.util.Client;
+import com.webank.blockchain.util.Constants;
 import com.webank.blockchain.util.JavaScriptEngine;
 
 @RestController
@@ -136,7 +137,7 @@ public class BlockChainController {
 		String str = java.net.URLDecoder.decode(requestJson, "utf-8");
 		JSONObject outer_jsonobj = JSONObject.fromObject(str, new JsonConfig());
 		JSONObject jsonobj = JSONObject.fromObject(outer_jsonobj.get("msgBody"));
-		String ip = "";
+		String ip = Constants.PORT_S;
 		String result = "";
 		Record r = new Record();
 		String jString="";
@@ -162,7 +163,6 @@ public class BlockChainController {
 					for (int i = 0; i < list.size(); i++) {
 						switch (list.get(i).getCommand()) {
 						case 1://捐款
-							ip = "8082";
 							r.setCommand(1);
 							r.setAmount(list.get(i).getAmount());
 							r.setTime(new Timestamp(System.currentTimeMillis()));
@@ -174,7 +174,6 @@ public class BlockChainController {
 							result += Client.sendPost("http://localhost:8082/pushAddRequest", s1);
 							break;
 						case 2://提款
-							ip = "8082";
 							r.setCommand(1);
 							r.setAmount(list.get(i).getAmount());
 							r.setTime(new Timestamp(System.currentTimeMillis()));
@@ -199,7 +198,6 @@ public class BlockChainController {
 		}else{
 			try{
 				//ip = InetAddress.getLocalHost().getHostAddress();
-				ip = "8080";
 				Timestamp time = new Timestamp(System.currentTimeMillis());
 //				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //				String generateTime = sdf.format(time);
@@ -213,9 +211,7 @@ public class BlockChainController {
 				result += Client.sendPost("http://localhost:8080/pushAddRequest", s);
 				result += Client.sendPost("http://localhost:8081/pushAddRequest", s);
 				result += Client.sendPost("http://localhost:8082/pushAddRequest", s);
-				
-//			Client.sendPost("http://localhost:8081/pushAddRequest", jsonobj);
-//			Client.sendPost("http://localhost:8082/pushAddRequest", jsonobj);
+
 			}
 			catch (Exception e){
 				System.out.println(e);

@@ -6,6 +6,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 
+import com.webank.blockchain.util.Constants;
+
 @SpringBootApplication
 public class App implements EmbeddedServletContainerCustomizer{
 	
@@ -19,7 +21,7 @@ public class App implements EmbeddedServletContainerCustomizer{
 
 	public void customize(ConfigurableEmbeddedServletContainer container) {
 		// TODO Auto-generated method stub
-		container.setPort(8082);
+		container.setPort(Constants.PORT);
 	}
 
 }	
