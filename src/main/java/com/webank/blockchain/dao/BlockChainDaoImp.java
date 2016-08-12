@@ -35,17 +35,19 @@ public class BlockChainDaoImp implements IBlockChainDao{
     	
 		byte[] bytes = null;
 		try {
+			System.out.println("remark before insert:"+block.getBody().get(0).getRemark());
 			bytes = SerializeTool.serializeObject(block);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         java.sql.Connection conn=null;
-        String sql= "insert into tb_block (body) values(?)"; 
+        String sql= "insert into tb_block (id,body) values(?,?)"; 
 		try {
 			conn=sqlSession.getConfiguration().getEnvironment().getDataSource().getConnection();
 			PreparedStatement ps=(PreparedStatement) conn.prepareStatement(sql);
-			ps.setBytes(1, bytes);
+			ps.setInt(1, block.getIndex());
+			ps.setBytes(2, bytes);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,6 +113,7 @@ public class BlockChainDaoImp implements IBlockChainDao{
 			try {
 				tb_Block=list.get(i);
 				block = (Block) SerializeTool.deserializeObject(tb_Block.body);
+				System.out.println("remark after select:"+block.getBody().get(0).getRemark());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

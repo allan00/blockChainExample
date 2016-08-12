@@ -140,7 +140,7 @@ public class BlockChainController {
 		String result = "";
 		Record r = new Record();
 		String jString = (String) jsonobj.get("js");
-		if (jString != null && jString != "") {
+		if (jString != null && !jString.equals("")) {
 			try {
 				String jsons = (String) JavaScriptEngine.engine3(jString);// 参数为jString
 				ArrayList<JSCommand> list = new ArrayList<JSCommand>();
@@ -200,9 +200,10 @@ public class BlockChainController {
 				r.setTime(time);
 				r.setRemark((String) jsonobj.get("remark"));
 				r.setIp(ip);
-				result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
-				result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
-				result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+				String s=java.net.URLEncoder.encode(r.toString(), "utf-8");
+				result += Client.sendPost("http://localhost:8080/pushAddRequest", s);
+				result += Client.sendPost("http://localhost:8081/pushAddRequest", s);
+				result += Client.sendPost("http://localhost:8082/pushAddRequest", s);
 				
 //			Client.sendPost("http://localhost:8081/pushAddRequest", jsonobj);
 //			Client.sendPost("http://localhost:8082/pushAddRequest", jsonobj);
