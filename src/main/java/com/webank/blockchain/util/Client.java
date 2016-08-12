@@ -1,9 +1,12 @@
 package com.webank.blockchain.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -163,6 +166,88 @@ public class Client {
             }  
         }  
         return result;  
-    }  
-    
-}  
+    }
+
+    //发送json格式的Post请求
+    public static String sendPost(String _url, String json) {
+        String result = "";// 返回的结果
+        StringBuffer sb = new StringBuffer();// 处理请求参数
+        HttpURLConnection connection = null;
+
+        try {
+            java.net.URL url = new java.net.URL(_url);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestMethod("POST");
+            connection.setUseCaches(false);
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.connect();
+
+            //POST请求
+            DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+            out.writeBytes(json);
+            out.flush();
+            out.close();
+
+            //读取响应
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String lines;
+            while ((lines = reader.readLine()) != null) {
+                lines = new String(lines.getBytes(), "utf-8");
+                sb.append(lines);
+            }
+            result = sb.toString();
+            reader.close();
+            connection.disconnect();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    //发送对象的Post请求
+    public static String sendPost(String _url, Object obj) {
+        String result = "";// 返回的结果
+        StringBuffer sb = new StringBuffer();// 处理请求参数
+        HttpURLConnection connection = null;
+
+        try {
+            java.net.URL url = new java.net.URL(_url);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestMethod("POST");
+            connection.setUseCaches(false);
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.connect();
+
+            //POST请求
+            ObjectOutputStream oos = new ObjectOutputStream(connection.getOutputStream());
+            oos.writeObject(obj);
+            oos.flush();
+            oos.close();
+
+            //读取响应
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String lines;
+            while ((lines = reader.readLine()) != null) {
+                lines = new String(lines.getBytes(), "utf-8");
+                sb.append(lines);
+            }
+            result = sb.toString();
+            reader.close();
+            connection.disconnect();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    }

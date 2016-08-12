@@ -1,16 +1,17 @@
 package com.webank.blockchain.controller;
 
+import java.net.InetAddress;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.webank.blockchain.domain.Block;
 import com.webank.blockchain.domain.BlockChain;
 import com.webank.blockchain.domain.Record;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import org.springframework.web.bind.annotation.*;
 
 import com.webank.blockchain.util.Client;
 import com.webank.blockchain.util.JsonTools;
@@ -29,15 +30,30 @@ public class BlockChainController {
 	}
 
 	@RequestMapping(value = "/addBlock", method = RequestMethod.POST)
-	public void add(@RequestParam("par1") String par1,@RequestParam("par2") String par2,@RequestParam("par3") String par3) {
-		Map parameters = new HashMap<String,String>();
-		parameters.put("par1",par1);
-		parameters.put("par2",par2);
-		parameters.put("par3",par3);
+	public String add(@RequestBody String requestJson) {
+		JSONObject jsonobj = JSONObject.fromObject(requestJson,new JsonConfig());
+		String ip = "";
+		String result = "";
+		try{
+			ip = InetAddress.getLocalHost().getHostAddress();
+			Timestamp time = new Timestamp(System.currentTimeMillis());
+//			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//			String generateTime = sdf.format(time);
+			Record r=new Record();
+			r.setCommand((Integer) jsonobj.get("command"));
+			r.setAmount(Double.valueOf((String) jsonobj.get("amount")));
+			r.setTime(time);
+			r.setRemark((String) jsonobj.get("remark"));
+			r.setIp(ip);
 
-		Client.sendPost("http://localhost:8080/pushAddRequest", parameters);
-		Client.sendPost("http://localhost:8081/pushAddRequest", parameters);
-		Client.sendPost("http://localhost:8082/pushAddRequest", parameters);
+			result += Client.sendPost("http://localhost:8080/pushAddRequest", jsonobj);
+//		Client.sendPost("http://localhost:8081/pushAddRequest", jsonobj);
+//		Client.sendPost("http://localhost:8082/pushAddRequest", jsonobj);
+		}
+		catch (Exception e){
+
+		}
+		return result;
 	}
 	
 	@RequestMapping(value = "/pushAddRequest", method = RequestMethod.POST)
