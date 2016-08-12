@@ -1,8 +1,28 @@
 .wrapper {
-	margin-top: 1rem;
-	background: gray
+width: 95%;
+height: 60%;
+padding: 10px;
+}
+.am-container {
+max-width: 95%;
+}
+.client {
+border-color: #0e90d2;
+border-width: 1px;
+border-style: solid;
+}
+ul {
+border-width: 1px;
+border-color: lightgray;
+border-style: solid;
 }
 
-.am-container {
-	max-width: 95%;
+.page1,.client {
+	height: 800px;
+	overflow:hidden;
+}
+
+
+header {
+	z-index:10;
 }
