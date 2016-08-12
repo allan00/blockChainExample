@@ -1,18 +1,17 @@
-package com.webank.blockchain.main;
+package com.webank.blockchain.controller;
 
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.webank.blockchain.domain.Block;
+import com.webank.blockchain.domain.BlockChain;
 import com.webank.blockchain.domain.Record;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webank.blockchain.blockchains.Block;
-import com.webank.blockchain.blockchains.BlockChain;
-import com.webank.blockchain.blockchains.Log;
 import com.webank.blockchain.util.Client;
 import com.webank.blockchain.util.JsonTools;
 
@@ -49,15 +48,14 @@ public class BlockChainController {
 		return bc.toString();
 	}
 	
-	@RequestMapping(value = "/log", method = RequestMethod.GET)
+	@RequestMapping(value = "/record", method = RequestMethod.GET)
     public String log() {
-		com.webank.blockchain.domain.Log l=new com.webank.blockchain.domain.Log("add");
-		l.setAmount(100);
-		l.setIp("192.168.0.11");
-		l.setDate(new Date(System.currentTimeMillis()));
-		l.setMsg("ccc");	
+		Record r=new Record();
+		r.setAmount(100);
+		r.setIp("192.168.0.11");
+		r.setCommand(2);
 		JsonTools js=new JsonTools();
-		String logJson=js.createJsonString("log1", l);
+		String logJson=js.createJsonString("log1", r);
 		return logJson;
     }
 }

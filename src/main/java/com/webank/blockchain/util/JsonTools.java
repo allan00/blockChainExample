@@ -1,9 +1,5 @@
 package com.webank.blockchain.util;
 
-
-
-import com.webank.blockchain.domain.Person;
-
 import net.sf.json.JSONObject;
 
 

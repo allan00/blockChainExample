@@ -9,7 +9,7 @@ import com.webank.blockchain.domain.Record;
  * 图书类型数据访问接口
  *
  */
-public interface BlockDao {
+public interface RecordDao {
 	/*
 	 * 获得所有图书类型
 	 */

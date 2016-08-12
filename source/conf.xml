@@ -7,9 +7,9 @@
             <!-- 配置数据库连接信息 -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://localhost:3306/blockchain" />
+                <property name="url" value="jdbc:mysql://57ac50c78f52c.gz.cdb.myqcloud.com:5875/block_chain1" />
                 <property name="username" value="root" />
-                <property name="password" value="root" />
+                <property name="password" value="19910919xyj" />
             </dataSource>
         </environment>
     </environments>
@@ -20,7 +20,7 @@
         <!-- <mapper resource="com/webank/blockchain/mapping/BlockMapper.xml" /> -->
         
         <!-- 注册映射接口，该接口文件包含了数据访问方法和SQL -->
-        <mapper class="com.webank.blockchain.mapping.IBlockMapper" />
+        <mapper class="com.webank.blockchain.mapping.IRecordMapper" />
  
     </mappers>
     

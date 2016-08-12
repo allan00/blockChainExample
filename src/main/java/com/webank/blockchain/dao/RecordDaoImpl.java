@@ -6,14 +6,14 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.webank.blockchain.domain.Block;
 import com.webank.blockchain.domain.Record;
-import com.webank.blockchain.mapping.IBlockMapper;
+import com.webank.blockchain.mapping.IRecordMapper;
 import com.webank.blockchain.util.MyBatisUtil;
 
 /**
  * 区块数据访问
  *
  */
-public class BlockDaoImpl implements BlockDao {
+public class RecordDaoImpl implements RecordDao {
 
 	/*
 	public List<Block> getAllBlock() {
@@ -35,8 +35,7 @@ public class BlockDaoImpl implements BlockDao {
 		// TODO Auto-generated method stub
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         // 得到AdminInfoMapper接口的实现类对象，IAdminInfoMapper接口的实现类对象由sqlSession.getMapper(IAdminInfoMapper.class)动态构建出来
-        IBlockMapper mapper = sqlSession.getMapper(IBlockMapper.class);
-        // 执行查询操作，将查询结果自动封装成User返回
+        IRecordMapper mapper = sqlSession.getMapper(IRecordMapper.class);
         Record record = mapper.getById(1);
         sqlSession.close();
         return record;

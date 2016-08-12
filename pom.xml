@@ -48,6 +48,20 @@
 		  <artifactId>mysql-connector-java</artifactId>
 		  <version>5.1.35</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.abel533/entitymapper -->
+		<dependency>
+		    <groupId>com.github.abel533</groupId>
+		    <artifactId>entitymapper</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.ibatis/ibatis2-sqlmap -->
+		<dependency>
+		    <groupId>com.ibatis</groupId>
+		    <artifactId>ibatis2-sqlmap</artifactId>
+		    <version>2.1.7.597</version>
+		</dependency>
+		
+		
         
     </dependencies>
 
