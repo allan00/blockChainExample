@@ -27,7 +27,9 @@ public class Record {
 
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", command"+"]";
+		return "{\"id\"=" + id + ", \"command\"=" + command + ", \"amount\"="
+				+ amount + ", \"time\"=\"" + time + "\", \"remark\"=\"" + remark + "\", \"ip\"=\""
+				+ ip + "\"}";
 	}
 
 	public int getId() {
