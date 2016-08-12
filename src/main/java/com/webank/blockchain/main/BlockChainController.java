@@ -1,5 +1,6 @@
 package com.webank.blockchain.main;
 
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.sql.Timestamp;
@@ -10,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.script.ScriptException;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -19,8 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import com.webank.blockchain.dao.BlockChainDaoImp;
 import com.webank.blockchain.domain.Block;
 import com.webank.blockchain.domain.BlockChain;
+import com.webank.blockchain.domain.JSCommand;
 import com.webank.blockchain.domain.Record;
 import com.webank.blockchain.util.Client;
+import com.webank.blockchain.util.JavaScriptEngine;
 
 @RestController
 public class BlockChainController {
@@ -128,30 +133,83 @@ public class BlockChainController {
 	@CrossOrigin
 	@RequestMapping(value = "/addBlock", method = RequestMethod.POST)
 	public String add(@RequestBody String requestJson) throws UnsupportedEncodingException {
-		String str = java.net.URLDecoder.decode(requestJson,"utf-8");
-        JSONObject outer_jsonobj = JSONObject.fromObject(str,new JsonConfig());;
+		String str = java.net.URLDecoder.decode(requestJson, "utf-8");
+		JSONObject outer_jsonobj = JSONObject.fromObject(str, new JsonConfig());
 		JSONObject jsonobj = JSONObject.fromObject(outer_jsonobj.get("msgBody"));
 		String ip = "";
 		String result = "";
 		Record r = new Record();
-		try{
-			//ip = InetAddress.getLocalHost().getHostAddress();
-			ip = "8080";
-			Timestamp time = new Timestamp(System.currentTimeMillis());
-//			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//			String generateTime = sdf.format(time);
-			//Record r=new Record();
-			r.setCommand((Integer) jsonobj.get("command"));
-			r.setAmount((Integer) jsonobj.get("amount"));
-			r.setTime(time);
-			r.setRemark((String) jsonobj.get("remark"));
-			r.setIp(ip);
-			result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
-//			result += Client.sendPost("http://119.29.98.174:8081/pushAddRequest", r.toString());
-//			result += Client.sendPost("http://119.29.98.174:8082/pushAddRequest", r.toString());
-		}
-		catch (Exception e){
-			System.out.println(e);
+		String jString = (String) jsonobj.get("js");
+		if (jString != null && jString != "") {
+			try {
+				String jsons = (String) JavaScriptEngine.engine3(jString);// 参数为jString
+				ArrayList<JSCommand> list = new ArrayList<JSCommand>();
+				JSONArray jsonArray = JSONArray.fromObject(jsons);
+				for (int i = 0; i < jsonArray.size(); i++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(i);
+					JSCommand jsCommand = new JSCommand();
+					jsCommand.setCommand((Integer) jsonObject.get("command"));
+					jsCommand.setAmount((Integer) jsonObject.get("amount"));
+					jsCommand.setRemark((String) jsonObject.get("remark"));
+					list.add(jsCommand);
+				}
+				for (int i = 0; i < list.size(); i++) {
+					switch (list.get(i).getCommand()) {
+					case 1://捐款
+						ip = "8082";
+						r.setCommand(1);
+						r.setAmount(list.get(i).getAmount());
+						r.setTime(new Timestamp(System.currentTimeMillis()));
+						r.setRemark(list.get(i).getRemark());
+						r.setIp(ip);
+						result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
+						result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
+						result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+						break;
+					case 2://提款
+						ip = "8082";
+						r.setCommand(1);
+						r.setAmount(list.get(i).getAmount());
+						r.setTime(new Timestamp(System.currentTimeMillis()));
+						r.setRemark(list.get(i).getRemark());
+						r.setIp(ip);
+						result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
+						result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
+						result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+						break;	
+					default:
+						break;
+					}
+					System.out.println(list.get(i));
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (ScriptException e) {
+				e.printStackTrace();
+			}
+		}else{
+			try{
+				//ip = InetAddress.getLocalHost().getHostAddress();
+				ip = "8082";
+				Timestamp time = new Timestamp(System.currentTimeMillis());
+//				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//				String generateTime = sdf.format(time);
+				//Record r=new Record();
+				r.setCommand((Integer) jsonobj.get("command"));
+				r.setAmount((Integer) jsonobj.get("amount"));
+				r.setTime(time);
+				r.setRemark((String) jsonobj.get("remark"));
+				r.setIp(ip);
+				result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
+				result += Client.sendPost("http://localhost:8081/pushAddRequest", r.toString());
+				result += Client.sendPost("http://localhost:8082/pushAddRequest", r.toString());
+				
+//			Client.sendPost("http://localhost:8081/pushAddRequest", jsonobj);
+//			Client.sendPost("http://localhost:8082/pushAddRequest", jsonobj);
+			}
+			catch (Exception e){
+				System.out.println(e);
+			}
 		}
 		return result;
 	}

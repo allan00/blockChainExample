@@ -49,25 +49,33 @@ public class RecordDaoImpl implements RecordDao {
         sqlSession.close();
  
         System.out.println(bean.size());
-    }
+    }*/
  
-
-    public void Insert() {
+	public void insert(Record record) {
+		// TODO Auto-generated method stub
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
-        IAdminInfoMapper mapper = sqlSession.getMapper(IAdminInfoMapper.class);
- 
-        AdminInfo bean = new AdminInfo();
-        bean.setAdminName("Admin" + System.currentTimeMillis());
- 
-        int result = mapper.add(bean);
-        sqlSession.commit();
+        IRecordMapper mapper = sqlSession.getMapper(IRecordMapper.class);
+    	int result = mapper.add(record);
+    	sqlSession.commit();
         sqlSession.close();
+        //System.out.println(result);
+	}
+	
+	
+	public void insert(Record[] records) {
+		// TODO Auto-generated method stub
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        IRecordMapper mapper = sqlSession.getMapper(IRecordMapper.class);
+        for (int i = 0; i < records.length; i++) {
+        	int result = mapper.add(records[i]);
+        	sqlSession.commit();
+			
+		}
+        sqlSession.close();
+        //System.out.println(result);
+	}
  
-        System.out.println(result);
-    }
- 
-
-    public void Update() {
+    /* void Update() {
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         IAdminInfoMapper mapper = sqlSession.getMapper(IAdminInfoMapper.class);
  

@@ -18,7 +18,24 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class MybatisTest {
     public static void main(String[] args) throws IOException {
     	RecordDao blockDao=new RecordDaoImpl();
-		Record r=blockDao.getById(1);
+		/*
+    	Record r=blockDao.getById(1);
 		System.out.println(r);
+		*/
+/*    Record[] records=new Record[100];
+    for (int i = 0; i < records.length; i++) {
+		records[i]=new Record();
+		records[i].setIp("2342");
+	}
+    blockDao.insert(records);*/
+    	for (int i = 0; i < 100; i++) {
+			
+    		Record record=new Record();
+    		record.setIp("1980");
+    		record.setAmount(1233);
+    		blockDao.insert(record);
+		}
+			
+		
     }
 }

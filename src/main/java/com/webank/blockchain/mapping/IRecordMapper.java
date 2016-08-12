@@ -21,7 +21,7 @@ public interface IRecordMapper {
     public List<Record> getAll();
      
     //使用@Insert注解指明add方法要执行的SQL
-    @Insert("insert into record(command,time,remark,ip) values(#{command},#{time},#{remark},#{ip})")
+    @Insert("insert into record(ip,amount) values(#{ip},#{amount})")
     public int add(Record record);
      
     //使用@Update注解指明update方法要执行的SQL

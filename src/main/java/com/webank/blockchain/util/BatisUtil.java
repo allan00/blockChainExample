@@ -6,21 +6,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  
-public class MyBatisUtil {
+public class BatisUtil {
     /**
      * 获取SqlSessionFactory
      * 
      * @return SqlSessionFactory
      */
-	private static SqlSessionFactory sessionFactory = null;
-
     public static SqlSessionFactory getSqlSessionFactory() {
-    	if (sessionFactory==null) {
-	        String resource = "conf.xml";
-	        InputStream is = MyBatisUtil.class.getClassLoader().getResourceAsStream(resource);
-	        sessionFactory = new SqlSessionFactoryBuilder().build(is);
-    	}
-        return sessionFactory;
+    	
+        String resource = "conf.xml";
+        InputStream is = BatisUtil.class.getClassLoader().getResourceAsStream(resource);
+        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+        return factory;
     }
  
     /**
@@ -29,7 +26,7 @@ public class MyBatisUtil {
      * @return SqlSession
      */
     public static SqlSession getSqlSession() {
-		return getSqlSessionFactory().openSession();		
+        return getSqlSessionFactory().openSession();
     }
  
     /**
@@ -42,7 +39,7 @@ public class MyBatisUtil {
      * @return SqlSession
      */
     public static SqlSession getSqlSession(boolean isAutoCommit) {
-		return getSqlSessionFactory().openSession(isAutoCommit);			
+        return getSqlSessionFactory().openSession(isAutoCommit);
     }
     
 }

@@ -111,7 +111,6 @@ public class BlockChainDaoImp implements IBlockChainDao{
 			try {
 				tb_Block=list.get(i);
 				block = (Block) SerializeTool.deserializeObject(tb_Block.body);
-				System.out.println(1);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

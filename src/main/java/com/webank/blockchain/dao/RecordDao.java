@@ -13,4 +13,6 @@ public interface RecordDao {
 	//public List<Block> getAllBlock();
 	
 	public Record getById(int id);
+	public void insert(Record[] records);
+	public void insert(Record record);
 }
