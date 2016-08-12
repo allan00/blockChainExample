@@ -1,9 +1,11 @@
-package com.webank.blockchain.blockchains;
+package com.webank.blockchain.domain;
 
 import com.webank.blockchain.domain.Record;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 
 
 public class Block {
@@ -12,8 +14,9 @@ public class Block {
 	private int prevHash;
 	private int index;
 	private int hash;
-	final public static int MAX_SIZE = 4;
 	private Timestamp generateTime;
+	
+	final public static int MAX_SIZE = 5;
 	
 	private ArrayList<Record> body = new ArrayList<Record>();
 	
@@ -25,6 +28,8 @@ public class Block {
 		this.prevIndex = prevIndex;
 		this.index = prevIndex + 1;
 		this.prevHash = prevHash;
+		this.generateTime = new Timestamp(System.currentTimeMillis()); 
+		this.hash = hashCode();
 	}
 	
 	public int size() {
@@ -34,6 +39,7 @@ public class Block {
 	public void add(Record r) {
 		if(this.size() < MAX_SIZE) {
 			body.add(r);
+			this.hash = hashCode();
 		}
 	}
 
@@ -41,6 +47,19 @@ public class Block {
 	public String toString() {
 		return "Block [prevIndex=" + prevIndex + ", index=" + index
 				+ ", prevHash=" + prevHash + ", body=" + body + "]";
+	}
+	
+	public String toJson() {
+		String resStr = "{\"prevIndex\":" + prevIndex + ", \"prevHash\":" + prevHash
+				+ ", \"index\":" + index + ", \"hash\":" + hash + ", \"generateTime\":" + generateTime
+				+ ", \"body\": [";
+		Iterator<Record> it = body.iterator();
+		while(it.hasNext()) {
+			resStr = resStr + it.next() + ",";
+		}
+		resStr = resStr.substring(0,resStr.length()-1) + "]}";
+		
+		return resStr;
 	}
 
 	public int getIndex() {
@@ -50,7 +69,7 @@ public class Block {
 	public int getPrevIndex() {
 		return prevIndex;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

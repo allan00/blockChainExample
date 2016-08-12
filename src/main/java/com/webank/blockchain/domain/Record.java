@@ -10,15 +10,19 @@ public class Record {
 	private String remark;
 	private String ip;
 
-	public Record() {
-	}
-	public Record(int id, int command, double amount, Timestamp time, String remark, String ip) {
-		this.id = id;
+	public Record() {}
+	
+	public Record(int command, double amount, Timestamp time, String remark, String ip) {
 		this.command = command;
 		this.amount = amount;
 		this.time = time;
 		this.remark = remark;
 		this.ip = ip;
+	}
+	
+	public Record(int id, int command, double amount, Timestamp time, String remark, String ip) {
+		this(command,amount,time,remark,ip);
+		this.id = id;
 	}
 
 	@Override
@@ -73,4 +77,5 @@ public class Record {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+	
 }
