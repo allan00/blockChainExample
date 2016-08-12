@@ -84,7 +84,7 @@ public class BlockChainController {
 		}
 		
 		r.setCommand((Integer) jsonobj.get("command"));
-		r.setAmount((Double) jsonobj.get("amount"));
+		r.setAmount(jsonobj.getDouble("amount"));
 		r.setTime(Timestamp.valueOf((String) jsonobj.get("time")));
 		r.setRemark((String) jsonobj.get("remark"));
 		r.setIp((String) jsonobj.get("ip"));
@@ -147,6 +147,7 @@ public class BlockChainController {
 		}
 		int c=(Integer) jsonobj.get("command");
 		if (c==3) {
+			jString=(String) jsonobj.get("js");
 			if (jString != null && !jString.equals("")) {
 				try {
 					String jsons = (String) JavaScriptEngine.engine3(jString);// 参数为jString
@@ -156,7 +157,7 @@ public class BlockChainController {
 						JSONObject jsonObject = jsonArray.getJSONObject(i);
 						JSCommand jsCommand = new JSCommand();
 						jsCommand.setCommand((Integer) jsonObject.get("command"));
-						jsCommand.setAmount((Double) jsonObject.get("amount"));
+						jsCommand.setAmount(jsonObject.getDouble("amount"));
 						jsCommand.setRemark((String) jsonObject.get("remark"));
 						list.add(jsCommand);
 					}
@@ -203,7 +204,7 @@ public class BlockChainController {
 //				String generateTime = sdf.format(time);
 				//Record r=new Record();
 				r.setCommand((Integer) jsonobj.get("command"));
-				r.setAmount((Double) jsonobj.get("amount"));
+				r.setAmount(jsonobj.getDouble("amount"));
 				r.setTime(time);
 				r.setRemark((String) jsonobj.get("remark"));
 				r.setIp(ip);
