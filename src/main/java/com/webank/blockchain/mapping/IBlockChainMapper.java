@@ -11,8 +11,8 @@ import com.webank.blockchain.domain.TB_Block;
 public interface IBlockChainMapper {
  
     //使用@Insert注解指明add方法要执行的SQL
-    @Insert("insert into tb_block(id, body) values(#{id} ,#{body})")
-    public int addBlock(TB_Block block);
+    @Insert("insert into tb_block(body) values(#{body})")
+    public int addBlock(TB_Block tb_block);
     
     //使用@Update注解指明update方法要执行的SQL
     @Update("update tb_block set body=#{body} where id = #{id}")

@@ -16,6 +16,7 @@ import net.sf.json.JsonConfig;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.webank.blockchain.dao.BlockChainDaoImp;
 import com.webank.blockchain.domain.Block;
 import com.webank.blockchain.domain.BlockChain;
 import com.webank.blockchain.domain.Record;
@@ -26,12 +27,30 @@ public class BlockChainController {
 
 	Block bc = new Block(0,0);
 	Block lastBc = bc;
+	Double total = 0.0;
 	BlockChain bco = new BlockChain(bc);
-    static ConcurrentHashMap<String,List> ip_records = new ConcurrentHashMap<>();
+	
+    static ConcurrentHashMap<String,List> ip_records = new ConcurrentHashMap<String, List>();
+    
 	@CrossOrigin
 	@RequestMapping(value = "/queryBlock", method = RequestMethod.GET)
 	public String bc() {
-		return bc.toJson();
+		return "{\"total\":"+total+", \"block\":"+bc.toJson()+"}";
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/queryAllBlock", method = RequestMethod.GET)
+	public String allBc() {
+		BlockChainDaoImp dao = new BlockChainDaoImp();
+		List<Block> list = dao.selectAll();
+		Iterator it = list.iterator();
+		String res = "[";
+		while(it.hasNext()) {
+			Block b = (Block)it.next();
+			res = res + b.toJson() + ",";
+		}
+		res = res + bc.toJson() + "]";
+		return res;
 	}
 	
 	@CrossOrigin
@@ -49,6 +68,15 @@ public class BlockChainController {
 //			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //			String generateTime = sdf.format(time);
 		//Record r=new Record();
+		
+		int opt = (Integer) jsonobj.get("command");
+		Double amt = (Double) jsonobj.get("amount");
+		if (opt == 1) {
+			total = total + amt;
+		} else if (opt == 2) {
+			total = total - amt;
+		}
+		
 		r.setCommand((Integer) jsonobj.get("command"));
 		r.setAmount((Double) jsonobj.get("amount"));
 		r.setTime(Timestamp.valueOf((String) jsonobj.get("time")));
@@ -98,7 +126,6 @@ public class BlockChainController {
 //    }
 	
 	@CrossOrigin
-	
 	@RequestMapping(value = "/addBlock", method = RequestMethod.POST)
 	public String add(@RequestBody String requestJson) throws UnsupportedEncodingException {
 		String str = java.net.URLDecoder.decode(requestJson,"utf-8");
@@ -109,7 +136,7 @@ public class BlockChainController {
 		Record r = new Record();
 		try{
 			//ip = InetAddress.getLocalHost().getHostAddress();
-			ip = "8082";
+			ip = "8080";
 			Timestamp time = new Timestamp(System.currentTimeMillis());
 //			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //			String generateTime = sdf.format(time);
@@ -119,7 +146,7 @@ public class BlockChainController {
 			r.setTime(time);
 			r.setRemark((String) jsonobj.get("remark"));
 			r.setIp(ip);
-			result += Client.sendPost("http://127.0.0.1:8080/pushAddRequest", r.toString());
+			result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
 //			result += Client.sendPost("http://119.29.98.174:8081/pushAddRequest", r.toString());
 //			result += Client.sendPost("http://119.29.98.174:8082/pushAddRequest", r.toString());
 		}
@@ -130,22 +157,31 @@ public class BlockChainController {
 	}
 
 
-    @CrossOrigin
-    @RequestMapping(value = "/queryRecordByIP", method = RequestMethod.POST)
-    public String getRecordList(@RequestParam("ip") String ip) throws UnsupportedEncodingException {
-        List list = ip_records.get(ip);
-        if(list==null)
-            return "null";
-        Iterator it = list.iterator();
-        String res = "[";
-        while(it.hasNext()) {
-            res = res +  ((Record)it.next()).toString()+",";
-        }
-        if(list.size()>0) {
-            res = res.substring(0,res.length()-1);
-        }
-        res += "]";
-        return res;
-    }
+	@CrossOrigin
+	@RequestMapping(value = "/queryRecordByIP", method = RequestMethod.POST)
+	public String getRecordList(@RequestBody String jsonip) throws UnsupportedEncodingException {
+	    String str = java.net.URLDecoder.decode(jsonip, "utf-8");
+	    JSONObject jsonobj = JSONObject.fromObject(str, new JsonConfig());
+	    String ip = "";
+	    if(jsonobj.get("ip")!=null) {
+	        ip = jsonobj.getString("ip");
+	    }
+	    else{
+	        return "";
+	    }
+	    List list = ip_records.get(ip);
+	    if(list==null)
+	        return "null";
+	    Iterator it = list.iterator();
+	    String res = "[";
+	    while(it.hasNext()) {
+	        res = res +  ((Record)it.next()).toString()+",";
+	    }
+	    if(list.size()>0) {
+	        res = res.substring(0,res.length()-1);
+	    }
+	    res += "]";
+	    return res;
+	}
 	
 }

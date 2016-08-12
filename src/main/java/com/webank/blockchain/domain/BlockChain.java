@@ -1,5 +1,7 @@
 package com.webank.blockchain.domain;
 
+import com.webank.blockchain.dao.BlockChainDaoImp;
+
 public class BlockChain {
 
 	private static Block lastBc;
@@ -13,6 +15,8 @@ public class BlockChain {
 			bc.add(r);
 		} else {
 			Block prevBc = lastBc;
+			BlockChainDaoImp dao = new BlockChainDaoImp();
+			dao.insertBlock(prevBc);
 			lastBc = new Block(prevBc.getIndex(),prevBc.hashCode());
 			lastBc.add(r);
 		}

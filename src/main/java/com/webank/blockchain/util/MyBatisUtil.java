@@ -1,10 +1,14 @@
 package com.webank.blockchain.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
- 
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
  
 public class MyBatisUtil {
     /**
@@ -12,12 +16,23 @@ public class MyBatisUtil {
      * 
      * @return SqlSessionFactory
      */
+	private static SqlSessionFactory sessionFactory = null;
+
     public static SqlSessionFactory getSqlSessionFactory() {
-    	
-        String resource = "conf.xml";
-        InputStream is = MyBatisUtil.class.getClassLoader().getResourceAsStream(resource);
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
-        return factory;
+    	if (sessionFactory==null) {
+	        String resource = "conf.xml";
+	        /*File file = new File(resource);
+	        InputStream in=null;
+			try {
+				in = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+	        InputStream in = MyBatisUtil.class.getClassLoader().getResourceAsStream(resource);
+	        sessionFactory = new SqlSessionFactoryBuilder().build(in);
+    	}
+        return sessionFactory;
     }
  
     /**
@@ -26,7 +41,7 @@ public class MyBatisUtil {
      * @return SqlSession
      */
     public static SqlSession getSqlSession() {
-        return getSqlSessionFactory().openSession();
+		return getSqlSessionFactory().openSession();		
     }
  
     /**
@@ -39,7 +54,7 @@ public class MyBatisUtil {
      * @return SqlSession
      */
     public static SqlSession getSqlSession(boolean isAutoCommit) {
-        return getSqlSessionFactory().openSession(isAutoCommit);
+		return getSqlSessionFactory().openSession(isAutoCommit);			
     }
     
 }

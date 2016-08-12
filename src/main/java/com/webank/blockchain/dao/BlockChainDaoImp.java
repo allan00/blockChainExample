@@ -1,9 +1,10 @@
 package com.webank.blockchain.dao;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.mysql.jdbc.PreparedStatement;
 import org.apache.ibatis.session.SqlSession;
 
 import com.webank.blockchain.domain.Block;
@@ -15,13 +16,13 @@ import com.webank.blockchain.util.SerializeTool;
 public class BlockChainDaoImp implements IBlockChainDao{
 
 	public int insertBlock(Block block) {
-		// TODO Auto-generated method stub
+/*		// TODO Auto-generated method stub
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         // 得到AdminInfoMapper接口的实现类对象，IAdminInfoMapper接口的实现类对象由sqlSession.getMapper(IAdminInfoMapper.class)动态构建出来
         IBlockChainMapper mapper = sqlSession.getMapper(IBlockChainMapper.class);
         // 执行查询操作，将查询结果自动封装成User返回
         TB_Block tb_Block = new TB_Block();
-        tb_Block.setId(block.getIndex());
+        //tb_Block.setId(block.getIndex());
         try {
 			tb_Block.setBody(SerializeTool.serializeObject(block));
 		} catch (IOException e) {
@@ -30,6 +31,33 @@ public class BlockChainDaoImp implements IBlockChainDao{
 		}
         mapper.addBlock(tb_Block);
         sqlSession.close();
+		return 0;*/
+    	
+		byte[] bytes = null;
+		try {
+			bytes = SerializeTool.serializeObject(block);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        java.sql.Connection conn=null;
+        String sql= "insert into tb_block (body) values(?)"; 
+		try {
+			conn=sqlSession.getConfiguration().getEnvironment().getDataSource().getConnection();
+			PreparedStatement ps=(PreparedStatement) conn.prepareStatement(sql);
+			ps.setBytes(1, bytes);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return 0;
 	}
 
