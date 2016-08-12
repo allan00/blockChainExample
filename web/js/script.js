@@ -42,7 +42,7 @@ function requestFetchMoney(url, amount, remark) {
 }
 
 function requestCustomOp(url, amount, remark, js) {
-    var data = '{"type": "normal","msgBody": {"command": 3,"amount":'+amount+',"remark": "'+remark+'","js": '+js+'}}';
+    var data = '{"type": "normal","msgBody": {"command": 3,"amount":null,"remark": "","js": "'+js+'"}}';
     return $.ajax({
         type: "post",
         url: url + '/addBlock',
@@ -104,7 +104,7 @@ function handleFetchMoney(data) {
 }
 
 function handleCustomOp(data) {
-    console.log(data);
+    notie.alert(1, '自定义操作成功', 1);
 }
 
 function handleAllQueryRec (data, htmlHandle) {
@@ -179,23 +179,29 @@ function checkEmpty(s) {
 
 
 
-function() {
-    return [{
-        command:1,
-        amount:10,
-        remark:"asas"
-    },{
-        command:1,
-        amount:10,
-        remark:"asas"
-    },{
-        command:2,
-        amount:10,
-        remark:"asas"
-    },{
-        command:2,
-        amount:100,
-        remark:"asas"
-    }];
-}
-document.querySelector('')
+// function customOpt() {
+//     return [{
+//         "command":1,
+//         "amount":10,
+//         "remark":"asas"
+//     },{
+//         "command":1,
+//         "amount":10,
+//         "remark":"asas"
+//     },{
+//         "command":1,
+//         "amount":10,
+//         "remark":"asas"
+//     },{
+//         "command":2,
+//         "amount":9,
+//         "remark":"asas"
+//     },{
+//         "command":2,
+//         "amount":5,
+//         "remark":"asas"
+//     }];
+// }
+// document.querySelector('')
+
+// function customOpt(){return '[{\"command\":1,\"amount\":10,\"remark\":\"asas\"},{\"command\":1,\"amount\":10,\"remark\":\"asas\"}]';}

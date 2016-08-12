@@ -73,15 +73,15 @@
             <div class="am-input-group am-form-group">
               <!-- <label for="doc-ipt-amt">交易金额：</label> -->
               <span class="am-input-group-label">交易金额：</span>
-              <input type="text" class="amt am-form-field" id="doc-ipt-amt" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
+              <input type="text" class="amt am-form-field" id="doc-ipt-amt1" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
             </div>
             <div class="am-input-group am-form-group">
               <span class="am-input-group-label">备注：</span>
-              <input type="text" class="remark am-form-field" id="doc-ipt-remark" placeholder="请输入交易原因">
+              <input type="text" class="remark am-form-field" id="doc-ipt-remark1" placeholder="请输入交易原因">
             </div>
             <div class="am-form-group">
               <label for="doc-ipt-script" style="color:#0e90d2;">自定义操作脚本：</label>
-              <textarea class="" id="doc-ipt-script" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
+              <textarea class="" id="doc-ipt-script1" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
             </div>
             <div class="am-g">
               <div class="am-u-lg-4">
@@ -161,15 +161,15 @@
               <div class="am-input-group am-form-group">
                 <!-- <label for="doc-ipt-amt">交易金额：</label> -->
                 <span class="am-input-group-label">交易金额：</span>
-                <input type="text" class="amt am-form-field" id="doc-ipt-amt" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
+                <input type="text" class="amt am-form-field" id="doc-ipt-amt2" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
               </div>
               <div class="am-input-group am-form-group">
                 <span class="am-input-group-label">备注：</span>
-                <input type="text" class="remark am-form-field" id="doc-ipt-remark" placeholder="请输入交易原因">
+                <input type="text" class="remark am-form-field" id="doc-ipt-remark2" placeholder="请输入交易原因">
               </div>
               <div class="am-form-group">
                 <label for="doc-ipt-script" style="color:#0e90d2;">自定义操作脚本：</label>
-                <textarea class="" id="doc-ipt-script" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
+                <textarea class="" id="doc-ipt-script2" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
               </div>
               <div class="am-g">
                 <div class="am-u-lg-4">
@@ -232,7 +232,7 @@
             </a>
           </div>
         </header>
-        <!-- page1 -->
+        <!-- page3 -->
         <div id="page3-1" class="am-u-lg-12 page3">
           <div class="am-u-lg-12">
             <h1 class="am-text-center" style="color:#0e90d2;margin-top:25px">捐款余额</h1>
@@ -247,15 +247,15 @@
               <div class="am-input-group am-form-group">
                 <!-- <label for="doc-ipt-amt">交易金额：</label> -->
                 <span class="am-input-group-label">交易金额：</span>
-                <input type="text" class="amt am-form-field" id="doc-ipt-amt" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
+                <input type="text" class="amt am-form-field" id="doc-ipt-amt3" onkeyup="if( ! /^\d*(?:\.\d{0,2})?$/.test(this.value)){this.value;}"  placeholder="请输入交易金额">
               </div>
               <div class="am-input-group am-form-group">
                 <span class="am-input-group-label">备注：</span>
-                <input type="text" class="remark am-form-field" id="doc-ipt-remark" placeholder="请输入交易原因">
+                <input type="text" class="remark am-form-field" id="doc-ipt-remark3" placeholder="请输入交易原因">
               </div>
               <div class="am-form-group">
                 <label for="doc-ipt-script" style="color:#0e90d2;">自定义操作脚本：</label>
-                <textarea class="" id="doc-ipt-script" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
+                <textarea class="" id="doc-ipt-script3" rows="5" placeholder="请在此输入新的交易规则脚本（可选）" style="resize:none"></textarea>
               </div>
               <div class="am-g">
                 <div class="am-u-lg-4">
@@ -323,13 +323,13 @@
     };
   });
   $("#giveMoney1").click(function(event) {
-    requestGiveMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+    requestGiveMoney(rootUrl1, $('#doc-ipt-amt1').val(), $('#doc-ipt-remark1').val());
   });
   $("#fetchMoney1").click(function(event) {
-    requestFetchMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+    requestFetchMoney(rootUrl1, $('#doc-ipt-amt1').val(), $('#doc-ipt-remark1').val());
   });
   $("#customOp1").click(function(event) {
-    requestCustomOp(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val(), $('#doc-ipt-script').val());
+    requestCustomOp(rootUrl1, $('#doc-ipt-amt1').val(), $('#doc-ipt-remark1').val(), $('#doc-ipt-script1').val());
   });
   $('#page1-search-close-btn').click(function(event) {
 
@@ -375,13 +375,13 @@
   });
 
   $("#giveMoney2").click(function(event) {
-    requestGiveMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+    requestGiveMoney(rootUrl2, $('#doc-ipt-amt2').val(), $('#doc-ipt-remark2').val());
   });
   $("#fetchMoney2").click(function(event) {
-    requestFetchMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+    requestFetchMoney(rootUrl2, $('#doc-ipt-amt2').val(), $('#doc-ipt-remark2').val());
   });
   $("#customOp2").click(function(event) {
-    requestCustomOp(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val(), $('#doc-ipt-script').val());
+    requestCustomOp(rootUrl2, $('#doc-ipt-amt2').val(), $('#doc-ipt-remark2').val(), $('#doc-ipt-script2').val());
   });
 
   setInterval(function() {
@@ -424,13 +424,13 @@
     };
   });
   $("#giveMoney3").click(function(event) {
-    requestGiveMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+    requestGiveMoney(rootUrl3, $('#doc-ipt-amt3').val(), $('#doc-ipt-remark3').val());
   });
   $("#fetchMoney3").click(function(event) {
-    requestFetchMoney(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val());
+    requestFetchMoney(rootUrl3, $('#doc-ipt-amt3').val(), $('#doc-ipt-remark3').val());
   });
   $("#customOp3").click(function(event) {
-    requestCustomOp(rootUrl1, $('#doc-ipt-amt').val(), $('#doc-ipt-remark').val(), $('#doc-ipt-script').val());
+    requestCustomOp(rootUrl3, $('#doc-ipt-amt3').val(), $('#doc-ipt-remark3').val(), $('#doc-ipt-script3').val());
   });
 
   setInterval(function() {
