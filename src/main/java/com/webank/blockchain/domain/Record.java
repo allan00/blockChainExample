@@ -1,8 +1,14 @@
 package com.webank.blockchain.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Record {
+public class Record implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private int command;
 	private double amount;
@@ -27,8 +33,8 @@ public class Record {
 
 	@Override
 	public String toString() {
-		return "{\"id\"=" + id + ", \"command\"=" + command + ", \"amount\"="
-				+ amount + ", \"time\"=\"" + time + "\", \"remark\"=\"" + remark + "\", \"ip\"=\""
+		return "{\"id\":" + id + ", \"command\":" + command + ", \"amount\":"
+				+ amount + ", \"time\":\"" + time + "\", \"remark\":\"" + remark + "\", \"ip\":\""
 				+ ip + "\"}";
 	}
 

@@ -2,13 +2,19 @@ package com.webank.blockchain.domain;
 
 import com.webank.blockchain.domain.Record;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
 
-public class Block {
+public class Block implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int prevIndex;
 	private int prevHash;
@@ -51,14 +57,16 @@ public class Block {
 	
 	public String toJson() {
 		String resStr = "{\"prevIndex\":" + prevIndex + ", \"prevHash\":" + prevHash
-				+ ", \"index\":" + index + ", \"hash\":" + hash + ", \"generateTime\":" + generateTime
-				+ ", \"body\": [";
+				+ ", \"index\":" + index + ", \"hash\":" + hash + ", \"generateTime\":\"" + generateTime
+				+ "\", \"body\": [";
 		Iterator<Record> it = body.iterator();
 		while(it.hasNext()) {
 			resStr = resStr + it.next() + ",";
 		}
-		resStr = resStr.substring(0,resStr.length()-1) + "]}";
-		
+		if (this.body.size()>0) {
+			resStr = resStr.substring(0,resStr.length()-1);
+		}
+		resStr += "]}";
 		return resStr;
 	}
 

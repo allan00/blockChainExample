@@ -37,21 +37,18 @@ public class BlockChainController {
 	@RequestMapping(value = "/pushAddRequest", method = RequestMethod.POST)
 	public String pushAdd(@RequestBody String rec) throws UnsupportedEncodingException {
 		String str = java.net.URLDecoder.decode(rec,"utf-8");
-//		if(!str.equals(rec)) {
-//			str = str.substring(0,str.length()-1);
-//		}
+		if(!str.equals(rec)) {
+			str = str.substring(0,str.length()-1);
+		}
 		//Record l = new Record(1,100,new Timestamp(System.currentTimeMillis()),str,"10.106.11.22");
 		
-		JSONObject jsonobj = JSONObject.fromObject(str,new JsonConfig());;
-		String ip = "";
-		String result = "";
+		JSONObject jsonobj = JSONObject.fromObject(str,new JsonConfig());
 		Record r = new Record();
 //			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //			String generateTime = sdf.format(time);
 		//Record r=new Record();
 		r.setCommand((Integer) jsonobj.get("command"));
 		r.setAmount((Double) jsonobj.get("amount"));
-		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");   
 		r.setTime(Timestamp.valueOf((String) jsonobj.get("time")));
 		r.setRemark((String) jsonobj.get("remark"));
 		r.setIp((String) jsonobj.get("ip"));
@@ -102,7 +99,8 @@ public class BlockChainController {
 		String result = "";
 		Record r = new Record();
 		try{
-			ip = InetAddress.getLocalHost().getHostAddress();
+			//ip = InetAddress.getLocalHost().getHostAddress();
+			ip = "8082";
 			Timestamp time = new Timestamp(System.currentTimeMillis());
 //			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //			String generateTime = sdf.format(time);
@@ -112,7 +110,9 @@ public class BlockChainController {
 			r.setTime(time);
 			r.setRemark((String) jsonobj.get("remark"));
 			r.setIp(ip);
-			result += Client.sendPost("http://localhost:8080/pushAddRequest", r.toString());
+			result += Client.sendPost("http://119.29.98.174:8080/pushAddRequest", r.toString());
+			result += Client.sendPost("http://119.29.98.174:8081/pushAddRequest", r.toString());
+			result += Client.sendPost("http://119.29.98.174:8082/pushAddRequest", r.toString());
 			
 //		Client.sendPost("http://localhost:8081/pushAddRequest", jsonobj);
 //		Client.sendPost("http://localhost:8082/pushAddRequest", jsonobj);
