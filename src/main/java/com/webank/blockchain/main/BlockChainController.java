@@ -94,8 +94,9 @@ public class BlockChainController {
 	@CrossOrigin
 	
 	@RequestMapping(value = "/addBlock", method = RequestMethod.POST)
-	public String add(@RequestBody String requestJson) {
-		JSONObject outer_jsonobj = JSONObject.fromObject(requestJson,new JsonConfig());;
+	public String add(@RequestBody String requestJson) throws UnsupportedEncodingException {
+		String str = java.net.URLDecoder.decode(requestJson,"utf-8");
+		JSONObject outer_jsonobj = JSONObject.fromObject(str,new JsonConfig());;
 		JSONObject jsonobj = JSONObject.fromObject(outer_jsonobj.get("msgBody"));
 		String ip = "";
 		String result = "";
