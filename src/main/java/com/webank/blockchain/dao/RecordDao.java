@@ -1,8 +1,5 @@
 package com.webank.blockchain.dao;
 
-import java.util.List;
-
-import com.webank.blockchain.domain.Block;
 import com.webank.blockchain.domain.Record;
 
 /**
