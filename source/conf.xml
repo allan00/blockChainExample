@@ -21,7 +21,7 @@
         
         <!-- 注册映射接口，该接口文件包含了数据访问方法和SQL -->
         <mapper class="com.webank.blockchain.mapping.IRecordMapper" />
- 
+ 		<mapper class="com.webank.blockchain.mapping.IBlockChainMapper" />
     </mappers>
     
 

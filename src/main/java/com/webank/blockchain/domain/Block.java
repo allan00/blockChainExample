@@ -14,7 +14,7 @@ public class Block implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4856168549612911255L;
 	
 	private int prevIndex;
 	private int prevHash;
@@ -68,6 +68,48 @@ public class Block implements Serializable {
 		}
 		resStr += "]}";
 		return resStr;
+	}
+
+	
+	
+	public int getPrevHash() {
+		return prevHash;
+	}
+
+	public void setPrevHash(int prevHash) {
+		this.prevHash = prevHash;
+	}
+
+	public int getHash() {
+		return hash;
+	}
+
+	public void setHash(int hash) {
+		this.hash = hash;
+	}
+
+	public Timestamp getGenerateTime() {
+		return generateTime;
+	}
+
+	public void setGenerateTime(Timestamp generateTime) {
+		this.generateTime = generateTime;
+	}
+
+	public ArrayList<Record> getBody() {
+		return body;
+	}
+
+	public void setBody(ArrayList<Record> body) {
+		this.body = body;
+	}
+
+	public void setPrevIndex(int prevIndex) {
+		this.prevIndex = prevIndex;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	public int getIndex() {

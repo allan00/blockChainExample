@@ -1,21 +1,26 @@
 package com.webank.blockchain.mapping;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.webank.blockchain.domain.Block;
+import com.webank.blockchain.domain.TB_Block;
 
 public interface IBlockChainMapper {
  
     //使用@Insert注解指明add方法要执行的SQL
-    @Insert("insert into block(block_index,prevHash,prevIndex,hash) values(#{index},#{prevHash},#{prevIndex},#{hash})")
-    public int addBlock(Block block);
-     
+    @Insert("insert into tb_block(id, body) values(#{id} ,#{body})")
+    public int addBlock(TB_Block block);
+    
     //使用@Update注解指明update方法要执行的SQL
-    @Update("update block set hash=#{hash} where block_index = #{index}")
-    public int updateBlock(Block block);
+    @Update("update tb_block set body=#{body} where id = #{id}")
+    public int updateBlock(TB_Block block);
       
-    @Select("select * from block where block_index = #{index}")
-    public Block selectByIndex(int block_index);
+    @Select("select * from tb_block where id = #{id}")
+    public TB_Block selectByIndex(int id);
+    
+    @Select("select * from tb_block order by id")
+    public List<TB_Block> selectAll();
 }

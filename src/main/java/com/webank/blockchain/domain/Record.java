@@ -7,7 +7,7 @@ public class Record implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2332636737031570856L;
 	
 	private int id;
 	private int command;
