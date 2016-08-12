@@ -134,6 +134,8 @@ public class BlockChainController {
     @RequestMapping(value = "/queryRecordByIP", method = RequestMethod.POST)
     public String getRecordList(@RequestParam("ip") String ip) throws UnsupportedEncodingException {
         List list = ip_records.get(ip);
+        if(list==null)
+            return "null";
         Iterator it = list.iterator();
         String res = "[";
         while(it.hasNext()) {
