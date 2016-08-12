@@ -155,14 +155,14 @@ public class BlockChainController {
 						JSONObject jsonObject = jsonArray.getJSONObject(i);
 						JSCommand jsCommand = new JSCommand();
 						jsCommand.setCommand((Integer) jsonObject.get("command"));
-						jsCommand.setAmount((Integer) jsonObject.get("amount"));
+						jsCommand.setAmount((Double) jsonObject.get("amount"));
 						jsCommand.setRemark((String) jsonObject.get("remark"));
 						list.add(jsCommand);
 					}
 					for (int i = 0; i < list.size(); i++) {
 						switch (list.get(i).getCommand()) {
 						case 1://捐款
-							ip = "8080";
+							ip = "8082";
 							r.setCommand(1);
 							r.setAmount(list.get(i).getAmount());
 							r.setTime(new Timestamp(System.currentTimeMillis()));
@@ -205,7 +205,7 @@ public class BlockChainController {
 //				String generateTime = sdf.format(time);
 				//Record r=new Record();
 				r.setCommand((Integer) jsonobj.get("command"));
-				r.setAmount((Integer) jsonobj.get("amount"));
+				r.setAmount((Double) jsonobj.get("amount"));
 				r.setTime(time);
 				r.setRemark((String) jsonobj.get("remark"));
 				r.setIp(ip);

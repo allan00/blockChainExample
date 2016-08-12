@@ -35,7 +35,7 @@ public class BlockChainDaoImp implements IBlockChainDao{
     	
 		byte[] bytes = null;
 		try {
-			System.out.println("remark before insert:"+block.getBody().get(0).getRemark());
+			//System.out.println("remark before insert:"+block.getBody().get(0).getRemark());
 			bytes = SerializeTool.serializeObject(block);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public class BlockChainDaoImp implements IBlockChainDao{
 			try {
 				tb_Block=list.get(i);
 				block = (Block) SerializeTool.deserializeObject(tb_Block.body);
-				System.out.println("remark after select:"+block.getBody().get(0).getRemark());
+				//System.out.println("remark after select:"+block.getBody().get(0).getRemark());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
